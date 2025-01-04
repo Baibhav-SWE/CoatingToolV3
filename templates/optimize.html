@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimize Layers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="p-6 bg-gray-100">
+    <h1 class="text-2xl font-bold mb-6">Optimize Layers</h1>
+
+    <!-- Display received data -->
+    <h2 class="text-xl font-semibold mb-4">Received Data</h2>
+    <p>Start Wavelength: {{ start_wavelength or 380 }}</p>
+    <p>End Wavelength: {{ end_wavelength or 1080 }}</p>
+    <p>Theta: {{ theta or 0 }}</p>
+    <p>Incoherence: {{ incoh or 1000 }}</p>
+
+    <h3>Front Layers</h3>
+    <ul>
+        {% for material, thickness in (front_layers.materials or [], front_layers.thicknesses or []) %}
+        <li>{{ material }}: {{ thickness }} nm</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Back Layers</h3>
+    <ul>
+        {% for material, thickness in (back_layers.materials or [], back_layers.thicknesses or []) %}
+        <li>{{ material }}: {{ thickness }} nm</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Optimize Button -->
+    <button type="button" id="optimizeBtn" class="btn bg-green-500 text-white px-4 py-2 rounded mt-4">Optimize</button>
+
+    <!-- Results -->
+    <div id="resultsSection" class="mt-8">
+        <h2 class="text-xl font-semibold mb-4">Optimization Results</h2>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        document.getElementById('optimizeBtn').addEventListener('click', () => {
+            // Collect data for optimization
+            const data = {
+                start_wavelength: {{ start_wavelength|default(380) | tojson }},
+                end_wavelength: {{ end_wavelength|default(1080) | tojson }},
+                theta: {{ theta|default(0) | tojson }},
+                incoh: {{ incoh|default(1000) | tojson }},
+                front_layers: {{ front_layers|default({"materials": [], "thicknesses": []}) | tojson }},
+                back_layers: {{ back_layers|default({"materials": [], "thicknesses": []}) | tojson }}
+            };
+
+            // Send data to the server for optimization
+            fetch('/optimize', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                // Display optimization results
+                const resultsSection = document.getElementById('results');
+                resultsSection.innerHTML = `
+                    <h3 class="font-bold">Optimized Thicknesses:</h3>
+                    <ul>${data.optimized_thicknesses.map((t, i) => `<li>Layer ${i + 1}: ${t} nm</li>`).join('')}</ul>
+                `;
+            })
+            .catch(err => {
+                console.error('Optimization error:', err);
+                const resultsSection = document.getElementById('results');
+                resultsSection.innerHTML = `
+                    <p class="text-red-500 font-bold">Error: ${err.message}</p>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
