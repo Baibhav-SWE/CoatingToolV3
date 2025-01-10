@@ -4,9 +4,9 @@ def get_required_data_from_webhook_order_fulfillment(order_fulfillment):
             "order_id": order_fulfillment["id"],
             "fulfillment_status": order_fulfillment["fulfillment_status"],
             "email": order_fulfillment["customer"]["email"],
-            "product_id": order_fulfillment["fulfillments"][0]["line_items"][0][
-                "product_id"
-            ],
+            "product_id": str(
+                order_fulfillment["fulfillments"][0]["line_items"][0]["product_id"]
+            ),
             "subscription_duration": order_fulfillment["fulfillments"][0]["line_items"][
                 0
             ]["variant_title"],

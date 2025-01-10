@@ -13,13 +13,13 @@ def is_subscription_active(user_id):
 
     # Fetch the active subscription for the user
     current_date = datetime.now(timezone.utc)  # Timezone-aware UTC datetime
+
+    # Fetch the subscription
     subscription = subscriptions_collection.find_one(
         {
             "user_id": user_id,
             "status": "active",
-            "end_date": {
-                "$gte": current_date.isoformat()
-            },  # Ensure end_date is not expired
+            "end_date": {"$gte": current_date},
         }
     )
 
@@ -106,13 +106,14 @@ def create_subscription(user_id, order_data):
 
         subscriptions_collection.insert_one(
             {
-                "user_id": user_id,
+                "user_id": user_id,  # Ensure user_id is stored as ObjectId
                 "subscription_type": subscription_type,
                 "product_id": order_data["product_id"],
                 "price": order_data["total_price"],
                 "product_title": order_data["product_title"],
                 "status": "active",
-                "start_date": datetime.now(timezone.utc).isoformat(),
+                "duration": order_data["subscription_duration"],
+                "start_date": datetime.now(timezone.utc),  # Store as datetime object
                 "end_date": (
                     datetime.now(timezone.utc)
                     + timedelta(
@@ -122,7 +123,7 @@ def create_subscription(user_id, order_data):
                             else 30
                         )
                     )
-                ).isoformat(),
+                ),  # Store as datetime object
             }
         )
         return True, "Subscription created successfully."
