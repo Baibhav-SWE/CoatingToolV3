@@ -1,54 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coating Tool - Welcome</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Background image styling */
-        body {
-            background-image: url('/static/images/IMG_4894.jpg'); /* Updated background image */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-            color: #F0F0F0;
-            font-family: 'Amiko', sans-serif;
-        }
-        .navbar {
-            background-color: #1B263B; /* Dark blue color */
-        }
-        .navbar a {
-            color: #F0F0F0;
-        }
-        /* Fix for hover inconsistency */
-    .navbar a.btn-primary:hover {
-        text-decoration: none; /* Prevent underline */
-        color: #1b263b; /* Ensure text is visible on hover */
+{% extends 'layout/layout.html' %}
+{% block head %}
+<title>Coating Tool - Welcome</title>
+{% endblock head %}
+{% block styles %}
+{{super()}}
+<style>
+    /* Background image styling */
+    body {
+        background-image: url('/static/images/IMG_4894.jpg');
+        /* Updated background image */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
+        color: #F0F0F0;
+        font-family: 'Amiko', sans-serif;
     }
-        .hero-section {
-            backdrop-filter: blur(10px);
-            background: rgba(0, 0, 0, 0.5);
-            padding: 4rem;
-            border-radius: 1rem;
-            text-align: center;
-            color: #F0F0F0;
-        }
-        .btn-primary {
-        background: #0d0d0d; /* Grey button */
+
+    .navbar {
+        background-color: #1B263B;
+        /* Dark blue color */
+    }
+
+    .navbar a {
+        color: #F0F0F0;
+    }
+
+    /* Fix for hover inconsistency */
+    .navbar a.btn-primary:hover {
+        text-decoration: none;
+        /* Prevent underline */
+        color: #1b263b;
+        /* Ensure text is visible on hover */
+    }
+
+    .hero-section {
+        backdrop-filter: blur(10px);
+        background: rgba(0, 0, 0, 0.5);
+        padding: 4rem;
+        border-radius: 1rem;
+        text-align: center;
+        color: #F0F0F0;
+    }
+
+    .btn-primary {
+        background: #0d0d0d;
+        /* Grey button */
         color: #f0e9e9;
         padding: 0.75rem 2rem;
         border-radius: 0.5rem;
         font-weight: bold;
         cursor: pointer;
-        transition: background 0.3s, color 0.3s; /* Added color transition */
+        transition: background 0.3s, color 0.3s;
+        /* Added color transition */
     }
+
     .btn-primary:hover {
-        background: #e0e0e0; /* Light grey background */
-        color: #1b263b; /* Darker text color for visibility */
+        background: #e0e0e0;
+        /* Light grey background */
+        color: #1b263b;
+        /* Darker text color for visibility */
     }
 
     .video-popup {
@@ -59,7 +71,8 @@
         padding: 10px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        display: none; /* Hidden by default */
+        display: none;
+        /* Hidden by default */
         z-index: 1000;
     }
 
@@ -93,41 +106,45 @@
     .open-video:hover {
         background: #0056b3;
     }
-    </style>
-</head>
-
-<body>
-    <!-- Navbar -->
-    <nav class="navbar text-white px-8 py-4 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="https://adaptivewaves.com/wp-content/uploads/2024/03/aw-logo.svg" alt="AW Logo" class="h-8 w-auto"> <!-- Logo added here -->
-                <h1 class="text-2xl font-bold">AW SpectraCoat™ Studio</h1>
-            </div>
-            <ul class="flex space-x-6">
-                <li><a href="/login" class="hover:text-gray-300">Home</a></li>
-                <li><a href="/help" class="hover:text-gray-300">Help</a></li>
-            </ul>
-            <div>
-                <a href="/login" class="hover:text-gray-300">Log in</a>
-                <a href="/register" class="btn-primary shadow-lg">Sign Up</a>
-            </div>
+</style>
+{% endblock styles %}
+{% block body %}
+<!-- Navbar -->
+<nav class="navbar text-white px-8 py-4 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="https://adaptivewaves.com/wp-content/uploads/2024/03/aw-logo.svg" alt="AW Logo"
+                class="h-8 w-auto"> <!-- Logo added here -->
+            <h1 class="text-2xl font-bold">AW SpectraCoat™ Studio</h1>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <div class="hero-section flex flex-col items-center justify-center">
-        <h1 class="text-5xl font-bold mb-6">Welcome to the AW SpectraCoat™ Studio</h1>
-        <p class="text-lg mb-10">Discover the Perfect Coating Design: Simulate, Analyze, and Innovate.</p>
-        <div class="flex space-x-6">
-            <!-- Login Button -->
-            <a href="/login" class="btn-primary shadow-lg">Login</a>
-            <!-- Register Button -->
-            <a href="/register" class="btn-primary shadow-lg">Register</a>
+        <ul class="flex space-x-6">
+            <li><a href="/login" class="hover:text-gray-300">Home</a></li>
+            <li><a href="/help" class="hover:text-gray-300">Help</a></li>
+        </ul>
+        <div>
+            <a href="/login" class="hover:text-gray-300">Log in</a>
+            <a href="/register" class="btn-primary shadow-lg">Sign Up</a>
         </div>
     </div>
+</nav>
 
-    <!-- Add this inside the body tag -->
+<!-- Hero Section -->
+<div class="hero-section flex flex-col items-center justify-center">
+    <h1 class="text-5xl font-bold mb-6">Welcome to the AW SpectraCoat™ Studio</h1>
+    <p class="text-lg mb-10">Discover the Perfect Coating Design: Simulate, Analyze, and Innovate.</p>
+    <div class="flex space-x-6">
+        <!-- Login Button -->
+        <a href="/login" class="btn-primary shadow-lg">Login</a>
+        <!-- Register Button -->
+        <a href="/register" class="btn-primary shadow-lg">Register</a>
+    </div>
+</div>
+<div class="w-full max-w-6xl mx-auto my-12">
+    <h1 class="text-5xl py-8 text-black font-bold text-center">Select Your Preferred Plan</h1>
+    {% include 'pricing.html' %}
+</div>
+
+<!-- Add this inside the body tag -->
 <div id="videoPopup" class="video-popup">
     <video id="videoPlayer" width="480" height="320" controls>
         <source src="/static/images/MyVideo.mp4" type="video/mp4">
@@ -137,9 +154,11 @@
 </div>
 
 <button class="open-video" onclick="toggleVideoPopup()">Watch Video</button>
-</body>
-</html>
 
+{%endblock body%}
+
+{% block scripts %}
+{{super()}}
 <script>
     function toggleVideoPopup() {
         const videoPopup = document.getElementById('videoPopup');
@@ -155,3 +174,4 @@
         }
     }
 </script>
+{% endblock scripts %}
