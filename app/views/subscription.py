@@ -19,6 +19,7 @@ def subscription():
 
     # Check subscription status
     status, message = is_subscription_active(user_id)
+    print(status, message)
 
     # If subscription is inactive, redirect to subscription page
     if not status:
