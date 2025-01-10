@@ -1,0 +1,23 @@
+{% extends 'layout/layout.html' %}
+
+{% block head %}
+<title>Subscription - AW SpectraCoat™ Studio</title>
+{% endblock head %}
+
+{% block styles %}
+{{super()}}
+{% endblock styles %}
+
+{% block body %}
+<div class="w-full h-screen flex flex-col">
+  <div class="my-12 text-center">
+    <h1 class="text-[3.5rem] font-bold shadow-black/40 m-0">
+      Choose Your Subscription Plan
+    </h1>
+  </div>
+
+  <div class="w-ful flex justify-center">
+    {% include '/sections/pricing.html' %}
+  </div>
+</div>
+{% endblock body %}

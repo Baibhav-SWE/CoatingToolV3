@@ -1,0 +1,23 @@
+
+<div class="navbar">
+  <!-- Left section for Upload New Material -->
+  <div class="navbar-left">
+    <a href="https://adaptivewaves.com/" target="_blank">
+      <img src="https://adaptivewaves.com/wp-content/uploads/2024/03/aw-logo.svg" alt="AW Logo"
+        style="width: 100px; height: auto;">
+    </a>
+
+    <button onclick="document.getElementById('materialFileInput').click();">Upload Material</button>
+    <a href="/welcome">Set Up Environment</a>
+  </div>
+
+  <!-- Right section for Help, Documentation, and Logout -->
+  <div class="navbar-right">
+    <span>Welcome, {{ first_name }}!</span>
+    <a href="/help" style="background-color: #444;">Help</a> <!-- Added Help Link -->
+    <a href="/static/Documentation.pdf" download="Documentation.pdf" style="background-color: #444;">Documentation</a>
+    <!-- Added Documentation Link -->
+
+    <a href="/logout">Logout</a>
+  </div>
+</div>
