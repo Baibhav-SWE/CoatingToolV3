@@ -1,0 +1,378 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    color: #080808;
+    background-color: #1B263B; /* Dark Blue Background */
+    margin: 0;
+    font-family: 'Amiko', sans-serif; 
+}
+#simulationModal {
+    z-index: 1000; /* Ensure it is above other elements */
+    overflow-y: auto;
+}
+.form-section {
+    flex: 1;
+    padding: 3rem;
+    margin-top: 2rem;
+    position: relative; /* Required for layering */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1; /* Ensure this section is above the background */
+    color: #ffffff; /* Ensure text is visible */
+}
+
+.form-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/images/TRA.png'); /* Set the background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(4px); /* Blur the background */
+    z-index: -1; /* Push it behind the content */
+    opacity: 0.5; /* Add some transparency if needed */
+}
+
+.form-section > * {
+    position: relative; /* Keep the content above the blurred background */
+    z-index: 2; /* Ensure form elements are on top */
+}
+
+/* Navbar Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 3rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000; /* Black Navbar */
+    color: #ffffff;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar a,
+.navbar button {
+    color: #ffffff;
+    margin-left: 1rem;
+    margin-right: 1.5rem;
+    text-decoration: none;
+    vertical-align: middle;
+    font-size: 1.1rem;
+    border: none; /* No borders for buttons */
+    cursor: pointer; /* Ensure buttons behave like links */
+}
+
+/* Hover Effect for Navbar Links */
+.navbar a:hover,
+.navbar button:hover {
+    text-decoration: none;
+}
+
+
+
+
+
+
+/* Input Field Styles */
+input {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ffffff;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    color: #000; /* Black text color */
+    font-size: 1.1rem;
+}
+
+.i{
+ color: #000;
+}
+
+input:focus {
+    outline: none;
+    background: #ffffff;
+    color: #000;
+}
+
+/* Button Styles */
+.btn-primary {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid #e64f4f;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+}
+
+.btn-secondary {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 50%;
+    max-width: 200px;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+    color: #0A2540;
+}
+
+.btn-primary:hover {
+    background: #e0e0e0;
+    color: #0A2540;
+}
+
+/* Image Section */
+.image-section {
+    flex: 1;
+    background-image: url('/static/images/IMG_4893.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Label Styles */
+label {
+    color: #D1F2F2;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.relative {
+    position: relative;
+}
+
+
+/* Show the menu on hover */
+.relative:hover .dropdown-menu {
+    display: block;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #333; /* Dark background for the dropdown */
+    color: #fff; /* White text color */
+    padding: 0.5rem 0; /* Add vertical padding only */
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 150px; /* Set a minimum width for the dropdown */
+}
+
+/* Dropdown Menu Button Styles */
+.dropdown-menu button {
+    display: block;
+    width: 100%; /* Ensure buttons take full width of the dropdown */
+    padding: 0.5rem 1rem; /* Adjust padding for better alignment */
+    text-align: left; /* Align text to the left */
+    background: transparent; /* Remove background for consistency */
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* Hover Effect for Menu Items */
+.dropdown-menu button:hover {
+    background-color: #555; /* Slightly lighter background */
+}
+
+
+/* Dropdown Button Styles */
+.navbar .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Navbar Button Styling */
+.navbar button {
+    background: none; /* No background for dropdown toggle */
+    color: #fff; /* Ensure white text */
+    border: none;
+    cursor: pointer;
+}
+
+/* Material Select and Input Styles */
+.material-select,
+.thickness-input {
+    color: #ffffff;
+    background-color: #0A2540;
+    border: 1px solid #ffffff;
+}
+
+/* Center Form Content */
+.max-w-4xl {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Layer Input Row */
+.layer-input-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Stack Section Styling */
+#stackSection {
+    background-color: #1B263B; /* Darker Blue for contrast */
+    border: 1px solid #cf4040;
+    color: #ffffff;
+    max-height: 100vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    width:400px;
+}
+
+/* Button Styling */
+#createStackButton {
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #e44d4d;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#createStackButton:hover {
+    background-color: #e0e0e0;
+    color: #0A2540;
+}
+
+/* Stack Container Styling */
+#stackContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.layer-box {
+    color: #333333; /* Dark gray color for better visibility */
+    /* Other styles */
+}
+
+.main-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between the form and stack */
+    align-items: flex-start; /* Align items at the start */
+    padding: 20px; /* Add some padding */
+}
+
+.form-section {
+    flex: 1; /* Allow the form section to take available space */
+    margin-right: 20px; /* Add some space between the form and stack */
+    background-color:#1B263B;
+}
+
+.stack-section {
+    width: 300px; /* Set a fixed width for the stack section */
+    /* You can adjust the width as needed */
+    background-color: #f0f0f0; /* Optional: Add a background color for visibility */
+    padding: 10px; /* Optional: Add some padding */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
+    background-color: #0A2540;
+}
+/* styles.css */
+
+
+/* Graphs inside the graph section */
+#combinedGraph, #transmittanceGraph, #reflectanceGraph {
+    width: 100%;
+    height: 400px; /* Set a fixed height for the graphs */
+}
+
+#savedDesignsModal {
+    display: none;
+    z-index: 1000;
+}
+
+#savedDesignsModal.hidden {
+    display: none;
+}
+
+#savedDesignsModal:not(.hidden) {
+    display: flex;
+}
+
+#designsList {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+#designsList div:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.bg-black {
+    background-color: black;
+}
+
+.bg-opacity-50 {
+    background-opacity: 0.5;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.p-6 {
+    padding: 1.5rem;
+}
+
+.max-w-3xl {
+    max-width: 768px;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+}
+
+.max-h-96 {
+    max-height: 24rem;
+}

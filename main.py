@@ -139,8 +139,6 @@ def register():
         session["user_id"] = str(user_id)  # Storing user ID in session
         session["email"] = email
         session["first_name"] = first_name
-        print("successfully registered")  # Debugging print
-
         # Redirect to the subscription page if no active subscription is found
         return redirect(url_for("app.subscription"))
 
@@ -507,11 +505,16 @@ def logout():
 
 @app.route("/help", methods=["GET", "POST"])
 def help():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
     return render_template("help.html", first_name=session.get("first_name"))
 
 
 @app.route("/public_designs", methods=["GET"])
 def public_designs():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+    
     print("Accessing /public_designs route")  # Debugging print
     try:
         return render_template(
@@ -526,6 +529,7 @@ def public_designs():
 def welcome():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
+    
     if request.method == "POST":
         # Get the data from the form submission
         start_wavelength = int(request.form["start_wavelength"])
@@ -796,6 +800,9 @@ def get_user_designs():
 
 @app.route("/upload_material", methods=["POST"])
 def upload_material():
+    if not session.get("logged_in"):
+        return jsonify({"error": "User not logged in"}), 403
+    
     if "file" not in request.files:
         return jsonify({"error": "No file part in the request"}), 400
 
@@ -835,6 +842,9 @@ def upload_material():
 
 @app.route("/get_public_designs", methods=["GET"])
 def get_public_designs():
+    if not session.get("logged_in"):
+        return jsonify({"error": "User not logged in"}), 403
+    
     try:
         # Fetch all public designs and include user_email explicitly
         public_designs = db["designs"].find(
@@ -930,6 +940,8 @@ def delete_design():
 
 @app.route("/materials", methods=["GET", "POST"])
 def materials():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
     # Fetch the list of available materials from the directory or database
     materials_list = os.listdir(
         materials_directory

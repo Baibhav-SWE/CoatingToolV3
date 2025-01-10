@@ -1,23 +1,18 @@
-
-<div class="navbar">
-  <!-- Left section for Upload New Material -->
-  <div class="navbar-left">
-    <a href="https://adaptivewaves.com/" target="_blank">
-      <img src="https://adaptivewaves.com/wp-content/uploads/2024/03/aw-logo.svg" alt="AW Logo"
-        style="width: 100px; height: auto;">
-    </a>
-
-    <button onclick="document.getElementById('materialFileInput').click();">Upload Material</button>
-    <a href="/welcome">Set Up Environment</a>
-  </div>
-
-  <!-- Right section for Help, Documentation, and Logout -->
-  <div class="navbar-right">
-    <span>Welcome, {{ first_name }}!</span>
-    <a href="/help" style="background-color: #444;">Help</a> <!-- Added Help Link -->
-    <a href="/static/Documentation.pdf" download="Documentation.pdf" style="background-color: #444;">Documentation</a>
-    <!-- Added Documentation Link -->
-
-    <a href="/logout">Logout</a>
-  </div>
-</div>
+<!-- Navbar -->
+<nav class="navbar text-white px-8 py-4 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="https://awi-three.vercel.app/AWILogo.svg" alt="AW Logo" class="h-8 w-auto">
+            <!-- Logo added here -->
+            <h1 class="text-2xl font-bold">AW SpectraCoat™ Studio</h1>
+        </div>
+        <ul class="flex space-x-6">
+            <li><a href="/login" class="hover:text-gray-300">Home</a></li>
+            <li><a href="/help" class="hover:text-gray-300">Help</a></li>
+        </ul>
+        <div>
+            <a href="/login" class="hover:text-gray-300">Log in</a>
+            <a href="/register" class="btn-primary shadow-lg">Sign Up</a>
+        </div>
+    </div>
+</nav>
