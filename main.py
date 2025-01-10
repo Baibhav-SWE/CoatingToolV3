@@ -7,6 +7,7 @@ from flask import (
     url_for,
     session,
     send_file,
+    flash,
 )
 import numpy as np
 import json
@@ -29,6 +30,7 @@ from email.mime.text import MIMEText
 from shopify_webhooks.routes import shopify_bp
 from app.routes import app_bp
 from app.utils.database import init_db, get_db, get_users_collection
+from app.services.subscription import is_subscription_active
 
 
 app = Flask(__name__, static_url_path="/static")
@@ -73,36 +75,74 @@ def login():
         email = request.form["email"]
         password = request.form["password"]
 
+        # Find user by email
         user = users.find_one({"email": email})
         if user and check_password_hash(user["password"], password):
             session["logged_in"] = True
+            session["user_id"] = str(
+                user["_id"]
+            )  # Store user ID as string for JSON serialization
             session["email"] = email
-            session["firstName"] = user["name"].split()[0]  # Extract the first name
-            return redirect(url_for("materials"))
+            session["first_name"] = user["name"].split()[0]  # Extract the first name
+
+            # Check if the user has an active subscription
+            is_active, message = is_subscription_active(user["_id"])
+            if not is_active:
+                flash(message, "warning")
+                return redirect(
+                    url_for("app.subscription")
+                )  # Redirect to subscription page
+
+            # Redirect to the original page or materials page
+            next_page = request.args.get("next", url_for("materials"))
+            return redirect(next_page)
         else:
             return render_template("login.html", error="Invalid email or password")
-
     return render_template("login.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        name = request.form["firstName"] + " " + request.form["lastName"]
+        first_name = request.form["first_name"]
+        last_name = request.form["lastName"]
+        name = first_name + " " + last_name
         email = request.form["signUpEmail"].strip().lower()
         password = request.form["signUpPassword"]
         confirm_password = request.form["confirmPassword"]
 
+        # Check if passwords match
         if password != confirm_password:
             return render_template("register.html", error="Passwords do not match")
 
+        # Check if the email already exists
+        users_collection = get_users_collection()
+        users_collection.delete_many({})
+        existing_user = users_collection.find_one({"email": email})
+        if existing_user:
+            return render_template("register.html", error="Email already in use")
+
+        # Hash the password and create the user
         hashed_password = generate_password_hash(password)
-        new_user = {"name": name, "email": email, "password": hashed_password}
-        users.insert_one(new_user)
+        new_user = {
+            "name": name,
+            "email": email,
+            "password": hashed_password,
+            "subscription_id": None,  # Subscription will be assigned after registration
+        }
+
+        # Insert the new user into the database
+        user_id = users_collection.insert_one(new_user).inserted_id
+
+        # Set session variables
         session["logged_in"] = True
+        session["user_id"] = str(user_id)  # Storing user ID in session
         session["email"] = email
-        session["firstName"] = name.split()[0]  # Extract the first name
-        return redirect(url_for("subscription"))
+        session["first_name"] = first_name
+        print("successfully registered")  # Debugging print
+
+        # Redirect to the subscription page if no active subscription is found
+        return redirect(url_for("app.subscription"))
 
     return render_template("register.html")
 
@@ -467,7 +507,7 @@ def logout():
 
 @app.route("/help", methods=["GET", "POST"])
 def help():
-    return render_template("help.html", first_name=session.get("firstName"))
+    return render_template("help.html", first_name=session.get("first_name"))
 
 
 @app.route("/public_designs", methods=["GET"])
@@ -475,7 +515,7 @@ def public_designs():
     print("Accessing /public_designs route")  # Debugging print
     try:
         return render_template(
-            "public_designs.html", first_name=session.get("firstName")
+            "public_designs.html", first_name=session.get("first_name")
         )
     except Exception as e:
         print(f"Error rendering template: {e}")
@@ -504,7 +544,7 @@ def welcome():
         return redirect(url_for("index"))
 
     print("Session data in welcome route:", session)  # Debugging: Print session data
-    return render_template("welcome.html", first_name=session.get("firstName"))
+    return render_template("welcome.html", first_name=session.get("first_name"))
 
 
 @app.route("/")
@@ -521,7 +561,7 @@ def index():
 
     return render_template(
         "index.html",
-        first_name=session.get("firstName"),
+        first_name=session.get("first_name"),
         start_wavelength=start_wavelength,
         end_wavelength=end_wavelength,
         glass_thickness=glass_thickness,
@@ -897,7 +937,7 @@ def materials():
     return render_template(
         "available_materials.html",
         materials=materials_list,
-        first_name=session.get("firstName"),
+        first_name=session.get("first_name"),
     )
 
 
