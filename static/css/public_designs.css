@@ -1,0 +1,182 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    color: #F0F0F0;
+    flex-direction: column;
+    background-color: #1B263B;
+    margin: 0;
+    font-family: 'Amiko', sans-serif;
+    padding: 0;
+    width: 100%; /* Ensure full-width content */
+    height: 100%; /* Ensure the body takes the full height of the viewport */
+    box-sizing: border-box; /* Include padding and borders in element's dimensions */
+}
+
+
+
+.content-section {
+    flex: 1;
+    padding: 4rem;
+    background-color: #1B263B;
+    
+}
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.navbar {
+display: flex;
+align-items: center;
+justify-content: space-between;
+width: 100%; /* Ensure it spans the full width of the page */
+padding: 0.5rem 1rem; /* Reduced padding to make the navbar thinner */
+background: rgba(0, 0, 0, 0.7); /* Add transparency */
+position: fixed;
+top: 0;
+left: 0; /* Ensure it starts from the left edge */
+z-index: 1000;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.navbar img {
+height: 30px; /* Adjust logo size */
+width: auto;
+margin-right: 1rem; /* Space between logo and links */
+}
+
+.navbar a {
+color: #F0F0F0;
+text-decoration: none;
+margin-left: 1rem;
+font-weight: bold;
+white-space: nowrap; /* Prevent wrapping */
+}
+
+.navbar a:hover {
+text-decoration: underline;
+}
+
+.navbar div {
+display: flex;
+align-items: center;
+}
+
+.design-container {
+    margin-top: 20px;
+    background-color: #0A2540;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.design {
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+.design-name {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.design-name:hover {
+    color: #0056b3;
+}
+.popup-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+
+.popup {
+background-color: #fff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+width: 80%;
+max-width: 600px;
+max-height: 80%;
+overflow-y: auto;
+text-align: left;
+color: #1B263B; /* Dark text color for better contrast */
+}
+
+.popup h2 {
+margin-top: 0;
+color: #1B263B; /* Ensure header is dark */
+}
+
+.popup p {
+color: #333; /* Darker text for better readability */
+}
+
+.close-btn {
+background-color: #e74c3c;
+color: #fff;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+float: right;
+}
+
+.close-btn:hover {
+background-color: #c0392b;
+}
+
+.apply-btn {
+background-color: #1B263B;
+color: #fff;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+margin-top: 10px;
+}
+
+.apply-btn:hover {
+background-color: #0A2540;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.footer h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.footer .btn {
+    margin-top: 10px;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.footer .btn:hover {
+    background-color: #0056b3;
+}

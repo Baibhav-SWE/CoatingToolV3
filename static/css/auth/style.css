@@ -1,0 +1,51 @@
+.navbar {
+    background-color: #000; /* Black navbar */
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar-left,
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+.navbar a,
+.navbar button {
+    color: #fff;
+    text-decoration: none;
+    background-color: #444; /* Dark button color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.navbar a:hover,
+.navbar button:hover {
+    background-color: #666; /* Slightly lighter hover color */
+}
+
+/* Tooltip styling */
+.navbar button:hover::after {
+    content: "Upload only a comma separated CSV with three columns: wavelength, n, k";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.navbar button:hover::after {
+    opacity: 1;
+}

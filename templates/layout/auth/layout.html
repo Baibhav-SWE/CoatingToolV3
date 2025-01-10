@@ -8,12 +8,23 @@
   {% block styles %}
   <link href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/style.css') }}"> -->
   {% endblock styles %}
 </head>
 
 <body>
-  {% include 'layout/navbar.html' %}
+  {% if request.path == url_for('index') %}
+  {% include 'layout/auth/navbar-index.html' %}
+  {% elif request.path == url_for('welcome') %}
+  {% include 'layout/auth/navbar-welcome.html' %}
+  {% elif request.path == url_for('public_designs') %}
+  {% include 'layout/auth/navbar-public-design.html' %}
+  {% elif request.path == url_for('help') %}
+  {% include 'layout/auth/navbar-help.html' %}
+  {% else %}
+  {% include 'layout/auth/navbar.html' %}
+  {% endif %}
+
   {% block body %}{% endblock body %}
 
 </body>
