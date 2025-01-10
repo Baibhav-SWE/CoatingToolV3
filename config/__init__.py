@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 # Load environment variables from the .env file
 load_dotenv()
 
+
 class Config:
     MONGO_URI = os.getenv("MONGO_URI")
     MAIL_SERVER = os.getenv("MAIL_SERVER")
@@ -13,3 +14,5 @@ class Config:
     MAIL_USERNAME = os.getenv("MAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
     SHOPIFY_SHARED_SECRET = os.getenv("SHOPIFY_SHARED_SECRET")
+    PREMIUM_PRODUCT_ID = os.getenv("PREMIUM_PRODUCT_ID")
+    BASIC_PRODUCT_ID = os.getenv("BASIC_PRODUCT_ID")
