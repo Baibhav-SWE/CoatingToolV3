@@ -28,6 +28,7 @@ from color_chart import plot_color_chart
 from email.mime.text import MIMEText
 from shopify_webhooks.routes import shopify_bp
 from app.routes import app_bp
+from app.utils.database import init_db, get_db, get_users_collection
 
 
 app = Flask(__name__, static_url_path="/static")
@@ -36,9 +37,9 @@ app.secret_key = "your_secure_secret_key"  # Secret key for session management
 app.config.from_object("config.Config")
 
 # MongoDB setup
-client = MongoClient(app.config["MONGO_URI"])
-db = client["AWI_users"]
-users = db["AWI_users"]
+init_db(app)
+db = get_db()
+users = get_users_collection()
 
 mail = Mail(app)
 
