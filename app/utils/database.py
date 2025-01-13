@@ -17,7 +17,7 @@ def init_db(app):
 
     client = MongoClient(mongo_uri)
     db = client.get_database(
-        "TEST_DB"
+        app.config.get("DB_NAME")
     )  # Will create the database if it doesn't exist
 
     # Create collections if they don't exist
@@ -53,3 +53,4 @@ def get_subscriptions_collection():
     """
     db = get_db()
     return db["subscriptions"]  # Access the 'subscriptions' collection
+

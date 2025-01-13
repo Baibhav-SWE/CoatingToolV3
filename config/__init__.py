@@ -7,6 +7,7 @@ load_dotenv()
 
 class Config:
     MONGO_URI = os.getenv("MONGO_URI")
+    DB_NAME = os.getenv("DB_NAME")
     MAIL_SERVER = os.getenv("MAIL_SERVER")
     MAIL_PORT = int(os.getenv("MAIL_PORT", 587))  # Default to 587 if not set
     MAIL_USE_TLS = os.getenv("MAIL_USE_TLS") == "True"
