@@ -16,12 +16,12 @@ def subscription_required(subscription_type):
         def decorated_function(*args, **kwargs):
             # Check if the user is logged in
             if not session.get("logged_in"):
-                return redirect(url_for("login", next=request.url))
+                return redirect(url_for("app.login", next=request.url))
 
             # Get the user ID from the session
             user_id = session.get("user_id")
             if not user_id:
-                return redirect(url_for("login"))
+                return redirect(url_for("app.login"))
 
             # Check the user's subscription status and type
             is_active, message = is_subscription_active(user_id)

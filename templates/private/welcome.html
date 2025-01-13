@@ -49,6 +49,9 @@
 <!-- Hidden File Input for Load Material -->
 <input type="file" id="materialFileInput" class="hidden" accept=".csv" onchange="uploadMaterial()" />
 
+{% endblock body %}
+
+{% block scripts %}
 <script>
     function redirectToIndex(action) {
         const url = new URL(window.location.origin + '/');
@@ -56,5 +59,4 @@
         window.location.href = url;
     }
 </script>
-
-{%endblock body%}
+{% endblock scripts %}

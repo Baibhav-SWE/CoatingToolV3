@@ -41,6 +41,9 @@
     <button class="btn" onclick="window.location.href='feedback.html'">Give Feedback</button>
 </footer>
 
+{% endblock body %}
+
+{% block scripts %}
 <script>
     async function fetchMaterials() {
         const response = await fetch('/get_materials');
@@ -230,8 +233,5 @@
             alert('Failed to delete material. Please try again.');
         }
     }
-
-
-
 </script>
-{%endblock body%}
+{% endblock scripts %}
