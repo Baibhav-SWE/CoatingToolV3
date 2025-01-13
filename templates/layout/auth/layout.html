@@ -8,18 +8,17 @@
   {% block styles %}
   <link href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/style.css') }}"> -->
   {% endblock styles %}
 </head>
 
 <body>
-  {% if request.path == url_for('index') %}
+  {% if request.path == url_for('app.index') %}
   {% include 'layout/auth/navbar-index.html' %}
-  {% elif request.path == url_for('welcome') %}
+  {% elif request.path == url_for('app.welcome') %}
   {% include 'layout/auth/navbar-welcome.html' %}
-  {% elif request.path == url_for('public_designs') %}
+  {% elif request.path == url_for('app.public_designs') %}
   {% include 'layout/auth/navbar-public-design.html' %}
-  {% elif request.path == url_for('help') %}
+  {% elif request.path == url_for('app.help') %}
   {% include 'layout/auth/navbar-help.html' %}
   {% else %}
   {% include 'layout/auth/navbar.html' %}
@@ -28,11 +27,7 @@
   {% block body %}{% endblock body %}
 
 </body>
-{% block scripts %}
-<!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.17/jspdf.plugin.autotable.min.js"></script> -->
-{% endblock scripts %}
 
+{% block scripts %}{% endblock scripts %}
 
 </html>

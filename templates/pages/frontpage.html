@@ -1,7 +1,14 @@
 {% extends 'layout/layout.html' %}
+
 {% block head %}
 <title>Coating Tool - Welcome</title>
 {% endblock head %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock styles %}
+
 {% block body %}
 
 <!-- Hero Section -->
@@ -24,4 +31,10 @@
   </video>
 </div>
 
-{%endblock body%}
+{% endblock body %}
+
+{% block scripts %}
+<!-- <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.17/jspdf.plugin.autotable.min.js"></script> -->
+{% endblock scripts %}

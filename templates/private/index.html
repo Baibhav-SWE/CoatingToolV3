@@ -35,7 +35,6 @@
     </div>
 </div>
 
-
 <!-- Designs Modal -->
 <!-- Select Design Modal -->
 <div id="designsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -64,16 +63,11 @@
     </div>
 </div>
 
-
-
-
 <!-- Hidden File Input for Open Functionality -->
 <input type="file" id="uploadDesignInput" class="hidden" accept=".json" />
 <input type="file" id="materialFileInput" accept=".csv" class="hidden" onchange="uploadMaterial()" />
 
-
 <!-- Main Content -->
-
 <div class="form-section p-8">
     <h1 class="text-2xl font-bold mb-6 text-white">AW SpectraCoat™ Studio</h1>
 
@@ -97,8 +91,6 @@
             </label>
         </div>
     </div>
-
-
 
     <!-- Wavelength and other environment inputs -->
     <div class="grid grid-cols-2 gap-6 mbss-6">
@@ -163,10 +155,9 @@
     </div>
 
 </div>
+
 <!-- Main Content Layout -->
 <div class="flex flex-row gap-6 mt-14 mr-6">
-
-
     <!-- Right Side: Stack Visualization Section -->
     <div id="stackSection" class="w-1/2 p-4 rounded-lg shadow-lg bg-[#1B263B]">
         <button id="createStackButton" class="btn-primary mb-4 w-full">Create Stack</button>
@@ -174,9 +165,6 @@
         <div id="stackContainer" class="flex flex-col items-center"></div>
     </div>
 </div>
-
-
-
 
 <!-- Graphical representation -->
 <div id="layerDesign" class="mt-10"></div>
@@ -206,19 +194,14 @@
     </div>
 </div>
 
-
-
 <!-- Jsc Display -->
 <div id="jscDisplay" class="mt-6 text-lg font-semibold text-primary"></div>
 
-
-
-
-</div>
-
 <div id="image-section"></div>
 
+{% endblock body %}
 
+{% block scripts %}
 <script>
     document.querySelectorAll('.dropdown').forEach((dropdown) => {
         const button = dropdown.querySelector('button');
@@ -1446,4 +1429,4 @@
     }
 
 </script>
-{%endblock body%}
+{% endblock scripts %}

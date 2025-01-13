@@ -1,0 +1,82 @@
+body {
+    background-color: #1B263B;
+    font-family: 'Amiko', sans-serif;
+    color: #F0F0F0;
+    padding: 0;
+    margin: 0;
+}
+
+.form-container {
+    background-color: #0A2540;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 100px auto;
+}
+
+h1 {
+    color: #FF3B3F;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    background-color: #1B263B;
+    color: #F0F0F0;
+}
+
+textarea:focus {
+    outline: 2px solid #FF3B3F;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    background-color: #FF3B3F;
+    color: white;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #cc3232;
+}
+
+#popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #0A2540;
+    color: #F0F0F0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    z-index: 1000;
+}
+
+#popup button {
+    margin-top: 15px;
+    background-color: #FF3B3F;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#popup button:hover {
+    background-color: #cc3232;
+}

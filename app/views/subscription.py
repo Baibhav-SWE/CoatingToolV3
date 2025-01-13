@@ -15,7 +15,7 @@ def subscription():
 
     # Check if user_id exists in session
     if not user_id:
-        return redirect(url_for("login"))
+        return redirect(url_for("app.login"))
 
     # Check subscription status
     status, message = is_subscription_active(user_id)
@@ -26,7 +26,7 @@ def subscription():
         return render_template("pages/subscription.html", message=message)
 
     # If subscription is active, redirect to materials page
-    return redirect(url_for("materials"))
+    return redirect(url_for("app.materials"))
 
 
 @login_required
@@ -39,5 +39,5 @@ def activate_trial():
 
     is_start, message = start_trial(user_id)
     if not is_start:
-        return redirect(url_for("subscription", error=message))
-    return redirect(url_for("materials"))
+        return redirect(url_for("app.subscription", error=message))
+    return redirect(url_for("app.materials"))

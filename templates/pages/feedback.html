@@ -1,0 +1,61 @@
+{% extends 'layout/layout.html' %}
+
+{% block head %}
+<title>Feedback - AW SpectraCoat™ Studio</title>
+{% endblock head %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/feedback.css') }}">
+{% endblock styles %}
+
+{% block body %}
+
+<div class="form-container">
+    <h1>Feedback Form</h1>
+    <form id="feedbackForm">
+        <textarea id="feedback" name="feedback" rows="5" placeholder="Share your thoughts..." required></textarea>
+        <button type="submit" class="btn">Submit Feedback</button>
+    </form>
+</div>
+
+<!-- Popup -->
+<div id="popup">
+    <p>Feedback received. We will work on your feedback. Thank you!</p>
+    <button onclick="closePopup()">Close</button>
+</div>
+
+{% endblock body %}
+
+{% block scripts %}
+<script>
+    document.getElementById('feedbackForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const feedback = document.getElementById('feedback').value;
+        const response = await fetch('/feedback.html', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({ feedback }),
+        });
+
+        const result = await response.json();
+        if (result.status === 'success') {
+            showPopup();
+        } else {
+            alert('Failed to submit feedback. Please try again.');
+        }
+    });
+
+    function showPopup() {
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('feedback').value = ''; // Clear the textarea
+    }
+</script>
+{% endblock scripts %}

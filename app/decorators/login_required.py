@@ -12,7 +12,7 @@ def login_required(f):
     def decorated_function(*args, **kwargs):
         if not session.get("logged_in"):  # Check if user is logged in
             return redirect(
-                url_for("login", next=request.url)
+                url_for("app.login", next=request.url)
             )  # Redirect to login page
         return f(*args, **kwargs)  # Call the original view function if authenticated
 
