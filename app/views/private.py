@@ -14,7 +14,10 @@ from get_electric import get_electric
 from random import randint
 from scipy.optimize import differential_evolution
 from color_chart import plot_color_chart
-from app.decorators import login_required
+from email.mime.text import MIMEText
+from shopify_webhooks.routes import shopify_bp
+from app.utils.database import init_db, get_db, get_users_collection
+from app.decorators import login_required, subscription_required
 
 # Temporary storage for OTPs (use a database or Redis in production)
 otp_storage = {}
@@ -163,7 +166,7 @@ def delete_material():
 def upload_material():
     if not session.get("logged_in"):
         return jsonify({"error": "User not logged in"}), 403
-    
+
     if "file" not in request.files:
         return jsonify({"error": "No file part in the request"}), 400
 
@@ -443,7 +446,7 @@ def public_designs():
 def get_public_designs():
     if not session.get("logged_in"):
         return jsonify({"error": "User not logged in"}), 403
-    
+
     try:
         # Fetch all public designs and include user_email explicitly
         public_designs = db["designs"].find(

@@ -28,6 +28,7 @@ from scipy.optimize import differential_evolution
 from color_chart import plot_color_chart
 from email.mime.text import MIMEText
 from app.utils.database import init_db, get_db, get_users_collection
+from app.utils.error_handlers import register_error_handlers
 
 
 app = Flask(__name__, static_url_path="/static")
@@ -42,9 +43,14 @@ mail = Mail(app)
 
 from shopify_webhooks.routes import shopify_bp
 from app.routes import app_bp
+from app.api import api
 
 app.register_blueprint(shopify_bp, url_prefix="/webhooks/shopify")
 app.register_blueprint(app_bp, url_prefix="/")
+app.register_blueprint(api, url_prefix="/api")
+
+register_error_handlers(app)
+
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=False, host="0.0.0.0", port=5500)

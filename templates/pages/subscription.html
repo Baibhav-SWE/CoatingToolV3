@@ -9,15 +9,31 @@
 {% endblock styles %}
 
 {% block body %}
-<div class="w-full h-screen flex flex-col">
-  <div class="my-12 text-center">
+<div class="w-full flex flex-col">
+  <div class="my-6 text-center">
     <h1 class="text-[3.5rem] font-bold shadow-black/40 m-0">
       Choose Your Subscription Plan
     </h1>
   </div>
 
-  <div class="w-ful flex justify-center">
+  <div class="w-full flex justify-center my-6">
     {% include '/sections/pricing.html' %}
   </div>
 </div>
 {% endblock body %}
+{% block scripts %}
+{{super()}}
+<script src="{{ url_for('static', filename='js/pricing.js') }}"></script>
+<script>
+  async function checkSubscription() {
+    const response = await api.get('/api/has-active-subscription');
+    if (response?.is_active) {
+      window.location.href = "{{ url_for('app.materials') }}";
+    }
+  }
+  window.addEventListener("pageshow", function () {
+    checkSubscription();
+    setTimeout(checkSubscription, 5000);
+  });
+</script>
+{% endblock scripts %}

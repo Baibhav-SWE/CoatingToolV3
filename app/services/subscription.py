@@ -22,7 +22,6 @@ def is_subscription_active(user_id):
             "end_date": {"$gte": current_date},
         }
     )
-
     if not subscription:
         return False, "No active subscription found or the subscription has expired."
 
@@ -45,7 +44,7 @@ def is_trial_taken(user_id):
         }
     )
     if subscription:
-        return True, "Trial already activated."
+        return True, "Trial already taken."
 
     return False, "Trial is not activated."
 
@@ -63,10 +62,11 @@ def start_trial(user_id):
                 "user_id": user_id,
                 "subscription_type": "trial",
                 "status": "active",
-                "start_date": datetime.now(timezone.utc).isoformat(),
+                "start_date": datetime.now(timezone.utc),
                 "end_date": (
-                    datetime.now(timezone.utc) + timedelta(days=7)
-                ).isoformat(),
+                    datetime.now(timezone.utc)
+                    + timedelta(days=app.config.get("TRIAL_DAYS", 7))
+                ),
             }
         )
 
