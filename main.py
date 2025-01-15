@@ -27,10 +27,7 @@ import smtplib
 from scipy.optimize import differential_evolution
 from color_chart import plot_color_chart
 from email.mime.text import MIMEText
-from shopify_webhooks.routes import shopify_bp
-from app.routes import app_bp
 from app.utils.database import init_db, get_db, get_users_collection
-from app.services.subscription import is_subscription_active
 
 
 app = Flask(__name__, static_url_path="/static")
@@ -40,6 +37,11 @@ app.config.from_object("config.Config")
 
 # MongoDB setup
 init_db(app)
+
+mail = Mail(app)
+
+from shopify_webhooks.routes import shopify_bp
+from app.routes import app_bp
 
 app.register_blueprint(shopify_bp, url_prefix="/webhooks/shopify")
 app.register_blueprint(app_bp, url_prefix="/")

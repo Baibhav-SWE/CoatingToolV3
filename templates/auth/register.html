@@ -56,7 +56,7 @@
             <label for="terms">I have read and agree to the Terms and Privacy Policy</label>
         </div>
 
-        <button type="submit" class="btn-primary" id="registerBtn" disabled>Register</button>
+        <button type="submit" class="btn-primary" id="registerBtn">Register</button>
 
         <div class="btn-container">
             <button onclick="window.location.href='/login'" class="btn-secondary">Login</button>
@@ -71,7 +71,7 @@
 {% endblock body %}
 
 {% block scripts %}
-<script>
+<!-- <script>
     const sendOtpBtn = document.getElementById('sendOtpBtn');
     const verifyOtpBtn = document.getElementById('verifyOtpBtn');
     const otpSection = document.getElementById('otpSection');
@@ -128,5 +128,5 @@
             })
             .catch(error => console.error('Error:', error));
     });
-</script>
+</script> -->
 {% endblock scripts %}

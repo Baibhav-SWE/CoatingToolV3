@@ -43,8 +43,7 @@ def get_users_collection():
     """
     Retrieve the 'users' collection.
     """
-    db = get_db()
-    return db["AWI_users"]  # Access the 'users' collection
+    return get_db()["AWI_users"]  # Access the 'users' collection
 
 
 def get_subscriptions_collection():

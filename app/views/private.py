@@ -1,42 +1,20 @@
 from flask import (
-    Flask,
     render_template,
     request,
     jsonify,
     redirect,
     url_for,
     session,
-    send_file,
-    flash,
 )
 import numpy as np
 import os
-import pandas as pd
 from set_stack import set_stack
 from ATR1D import ATR1D
-from pymongo import MongoClient
-from werkzeug.security import generate_password_hash, check_password_hash
 from get_electric import get_electric
 from random import randint
-from flask_mail import Mail, Message
 from scipy.optimize import differential_evolution
 from color_chart import plot_color_chart
-from email.mime.text import MIMEText
-from shopify_webhooks.routes import shopify_bp
-from app.utils.database import init_db, get_db, get_users_collection
 from app.decorators import login_required
-
-app = Flask(__name__, static_url_path="/static")
-app.secret_key = "your_secure_secret_key"  # Secret key for session management
-
-app.config.from_object("config.Config")
-
-# MongoDB setup
-init_db(app)
-db = get_db()
-users = get_users_collection()
-
-mail = Mail(app)
 
 # Temporary storage for OTPs (use a database or Redis in production)
 otp_storage = {}

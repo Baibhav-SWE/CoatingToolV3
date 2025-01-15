@@ -1,23 +1,14 @@
-from flask import Flask, request, render_template, url_for, redirect, session, flash, jsonify
-from app.utils.database import init_db, get_db, get_users_collection
+from flask import request, render_template, url_for, redirect, session, flash, jsonify
+from app.utils.database import get_users_collection
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.services.subscription import is_subscription_active
-from flask_mail import Mail, Message
+from flask_mail import Message
 import time
 import smtplib
 from random import randint
+from main import mail
 
-app = Flask(__name__, static_url_path="/static")
-app.secret_key = "your_secure_secret_key"  # Secret key for session management
-
-app.config.from_object("config.Config")
-
-# MongoDB setup
-init_db(app)
-db = get_db()
 users = get_users_collection()
-
-mail = Mail(app)
 
 # Temporary storage for OTPs (use a database or Redis in production)
 otp_storage = {}
@@ -63,7 +54,7 @@ def logout():
 
 def register():
     if request.method == "POST":
-        first_name = request.form["first_name"]
+        first_name = request.form["firstName"]
         last_name = request.form["lastName"]
         name = first_name + " " + last_name
         email = request.form["signUpEmail"].strip().lower()
@@ -76,7 +67,6 @@ def register():
 
         # Check if the email already exists
         users_collection = get_users_collection()
-        users_collection.delete_many({})
         existing_user = users_collection.find_one({"email": email})
         if existing_user:
             return render_template("auth/register.html", error="Email already in use")
