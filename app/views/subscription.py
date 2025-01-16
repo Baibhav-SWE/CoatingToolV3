@@ -8,7 +8,7 @@ from flask import (
 )
 from app.decorators import login_required
 from app.services.subscription import (
-    is_subscription_active,
+    has_subscription_active,
     is_trial_taken,
     start_trial,
 )
@@ -44,13 +44,8 @@ def subscription():
     # Retrieve user_id from session
     user_id = session.get("user_id")
 
-    # Check if user_id exists in session
-    if not user_id:
-        return redirect(url_for("app.login"))
-
     # Check subscription status
-    status, message = is_subscription_active(user_id)
-    print(status, message)
+    status, message = has_subscription_active(user_id)
 
     # If subscription is inactive, redirect to subscription page
     if not status:

@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import request, redirect, url_for, session, flash
-from app.services.subscription import is_subscription_active
+from app.services.subscription import has_subscription_active
 from app.utils.database import get_subscriptions_collection
 
 
@@ -24,7 +24,7 @@ def subscription_required(subscription_type):
                 return redirect(url_for("app.login"))
 
             # Check the user's subscription status and type
-            is_active, message = is_subscription_active(user_id)
+            is_active, message = has_subscription_active(user_id)
             if not is_active:
                 flash(message, "warning")
                 return redirect(
@@ -39,13 +39,18 @@ def subscription_required(subscription_type):
                 flash("No subscription found.", "warning")
                 return redirect(url_for("app.subscription"))
 
+            user_subscription_type = user_subscription.get("subscription_type")
+
+            if user_subscription_type == "premium":
+                return f(*args, **kwargs)
+
             # Check if the user has the required subscription type
-            if user_subscription.get("subscription_type") != subscription_type:
+            if user_subscription_type != subscription_type:
                 flash(
                     f"{subscription_type.capitalize()} subscription required.",
                     "warning",
                 )
-                return redirect(url_for("app.subscription"))
+                return redirect(request.referrer or url_for("app.subscription"))
 
             return f(*args, **kwargs)  # Access allowed if the subscription is valid
 

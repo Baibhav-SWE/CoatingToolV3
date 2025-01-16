@@ -1,7 +1,7 @@
 from flask import request, render_template, url_for, redirect, session, flash, jsonify
 from app.utils.database import get_users_collection
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.services.subscription import is_subscription_active
+from app.services.subscription import has_subscription_active
 from flask_mail import Message
 import time
 import smtplib
@@ -29,7 +29,7 @@ def login():
             session["first_name"] = user["name"].split()[0]  # Extract the first name
 
             # Check if the user has an active subscription
-            is_active, message = is_subscription_active(user["_id"])
+            is_active, message = has_subscription_active(user["_id"])
             if not is_active:
                 flash(message, "warning")
                 return redirect(

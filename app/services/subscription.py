@@ -1,29 +1,43 @@
 from flask import current_app as app
 from datetime import datetime, timezone, timedelta
-from app.utils.database import get_subscriptions_collection
+from dateutil.relativedelta import relativedelta
+from app.utils.database import get_subscriptions_collection, get_payments_collection
+from app.services.payment import get_pending_payment, update_payment
 
 
-def is_subscription_active(user_id):
-    """
-    Check if the user has a single active subscription that has not expired.
-    :param user_id: ID of the user making the request.
-    :return: A tuple (bool, str) indicating the subscription status and a message.
-    """
+def has_subscription_active(user_id):
     subscriptions_collection = get_subscriptions_collection()
-
-    # Fetch the active subscription for the user
     current_date = datetime.now(timezone.utc)  # Timezone-aware UTC datetime
 
     # Fetch the subscription
-    subscription = subscriptions_collection.find_one(
-        {
-            "user_id": user_id,
-            "status": "active",
-            "end_date": {"$gte": current_date},
-        }
-    )
+    subscription = subscriptions_collection.find_one({"user_id": user_id})
+
     if not subscription:
+        payment = get_pending_payment(user_id)
+        if not payment:
+            return False, "Subscription has expired."
+        create_subscription(user_id, payment)
         return False, "No active subscription found or the subscription has expired."
+
+    # Ensure `end_date` is timezone-aware
+    end_date = subscription.get("end_date")
+    if not end_date:
+        return False, "Subscription has no end date."
+
+    if end_date.tzinfo is None:  # If naive, make it UTC-aware
+        end_date = end_date.replace(tzinfo=timezone.utc)
+
+    # Check if the subscription has expired
+    if end_date < current_date:
+        payment = get_pending_payment(user_id)
+        if not payment:
+            return False, "Subscription has expired."
+        activate_subscription(user_id, payment)
+        return True, "Subscription is active."
+
+    # Check if the subscription is active
+    if subscription.get("status") != "active":
+        return False, "Subscription is not active."
 
     return True, "Subscription is active."
 
@@ -40,11 +54,10 @@ def is_trial_taken(user_id):
     subscription = subscriptions_collection.find_one(
         {
             "user_id": user_id,
-            "subscription_type": "trial",
         }
     )
     if subscription:
-        return True, "Trial already taken."
+        return True, "Trial not available."
 
     return False, "Trial is not activated."
 
@@ -57,22 +70,23 @@ def start_trial(user_id):
     """
     try:
         subscriptions_collection = get_subscriptions_collection()
-        subscriptions_collection.insert_one(
+        end_date = datetime.now(timezone.utc) + timedelta(
+            days=app.config.get("TRIAL_DAYS", 7)
+        )
+        subscription = subscriptions_collection.insert_one(
             {
                 "user_id": user_id,
                 "subscription_type": "trial",
                 "status": "active",
-                "start_date": datetime.now(timezone.utc),
-                "end_date": (
-                    datetime.now(timezone.utc)
-                    + timedelta(days=app.config.get("TRIAL_DAYS", 7))
-                ),
+                "end_date": end_date,
+                "created_at": datetime.now(timezone.utc),
+                "updated_at": datetime.now(timezone.utc),
             }
         )
 
-        return True, "Trial activated successfully."
+        return subscription.inserted_id, "Trial activated successfully."
     except Exception as e:
-        return False, "An error occurred while activating the trial subscription."
+        return None, "An error occurred while activating the trial subscription."
 
 
 def check_valid_product(product_id):
@@ -82,50 +96,126 @@ def check_valid_product(product_id):
     ]
 
 
-def get_subscription_type(product_id):
-    return "basic" if product_id == app.config.get("BASIC_PRODUCT_ID") else "premium"
-
-
-def create_subscription(user_id, order_data):
+def create_subscription(user_id, payment_data):
     try:
         subscriptions_collection = get_subscriptions_collection()
 
-        # Check if an active subscription exists
-        existing_subscription = subscriptions_collection.find_one(
-            {"user_id": user_id, "status": "active"}
-        )
-
+        # Check if a subscription already exists for the user
+        existing_subscription = subscriptions_collection.find_one({"user_id": user_id})
         if existing_subscription:
-            # Set the existing active subscription to "expired"
-            subscriptions_collection.find_one_and_update(
-                {"_id": existing_subscription["_id"]}, {"$set": {"status": "expired"}}
-            )
+            return None, "User already has a subscription."
 
-        # Proceed to create the new subscription
-        subscription_type = get_subscription_type(order_data["product_id"])
+        # Calculate end_date based on subscription duration
+        if payment_data["duration"].lower() == "monthly":
+            end_date = datetime.now(timezone.utc) + relativedelta(months=1)
+        elif payment_data["duration"].lower() == "yearly":
+            end_date = datetime.now(timezone.utc) + relativedelta(months=12)
+        else:
+            return None, "Invalid subscription duration."
 
-        subscriptions_collection.insert_one(
+        # Insert the new subscription
+        subscription = subscriptions_collection.insert_one(
             {
-                "user_id": user_id,  # Ensure user_id is stored as ObjectId
-                "subscription_type": subscription_type,
-                "product_id": order_data["product_id"],
-                "price": order_data["total_price"],
-                "product_title": order_data["product_title"],
+                "user_id": user_id,
+                "payment_id": payment_data["_id"],
+                "subscription_type": payment_data["plan_type"],
                 "status": "active",
-                "duration": order_data["subscription_duration"],
-                "start_date": datetime.now(timezone.utc),  # Store as datetime object
-                "end_date": (
-                    datetime.now(timezone.utc)
-                    + timedelta(
-                        days=(
-                            365
-                            if order_data["subscription_duration"] == "Yearly"
-                            else 30
-                        )
-                    )
-                ),  # Store as datetime object
+                "end_date": end_date,
+                "created_at": datetime.now(timezone.utc),
+                "updated_at": datetime.now(timezone.utc),
             }
         )
-        return True, "Subscription created successfully."
+        update_payment(
+            payment_data["_id"],
+            {
+                "status": "used",
+                "updated_at": datetime.now(timezone.utc),
+            },
+        )
+
+        return subscription.inserted_id, "Subscription created successfully."
     except Exception as e:
-        return False, f"An error occurred while creating the subscription: {str(e)}"
+        return None, f"An error occurred while creating the subscription: {str(e)}"
+
+
+def update_subscription(user_id, payment_data):
+    try:
+        subscriptions_collection = get_subscriptions_collection()
+
+        # Fetch the current subscription
+        subscription = subscriptions_collection.find_one({"user_id": user_id})
+
+        if not subscription:
+            return create_subscription(user_id, payment_data)
+
+        # Determine the starting date for the new end_date calculation
+        current_end_date = subscription.get("end_date", datetime.now(timezone.utc))
+        current_end_date = (
+            current_end_date
+            if current_end_date > datetime.now(timezone.utc)
+            else datetime.now(timezone.utc)
+        )
+
+        # Calculate new end_date based on the plan's duration
+        if payment_data["duration"].lower() == "monthly":
+            new_end_date = current_end_date + relativedelta(months=1)
+        elif payment_data["duration"].lower() == "yearly":
+            new_end_date = current_end_date + relativedelta(months=12)
+        else:
+            return None, "Invalid subscription duration."
+
+        # Update the subscription in the database
+        updated_subscription = subscriptions_collection.find_one_and_update(
+            {"user_id": user_id},
+            {
+                "$set": {
+                    "payment_id": payment_data["_id"],
+                    "end_date": new_end_date,
+                    "subscription_type": payment_data["plan_type"],
+                    "updated_at": datetime.now(timezone.utc),
+                }
+            },
+            return_document=True,
+        )
+        update_payment(
+            payment_data["_id"],
+            {
+                "status": "used",
+                "updated_at": datetime.now(timezone.utc),
+            },
+        )
+
+        return updated_subscription, "Subscription updated successfully."
+    except Exception as e:
+        return None, f"An error occurred while updating the subscription: {str(e)}"
+
+
+def activate_subscription(user_id, payment_data):
+    return update_subscription(user_id, payment_data)
+
+
+def deactivate_subscription(user_id):
+    try:
+        subscriptions_collection = get_subscriptions_collection()
+
+        # Fetch the current subscription
+        subscription = subscriptions_collection.find_one({"user_id": user_id})
+
+        if not subscription:
+            return None, "User does not have a subscription."
+
+        # Update the subscription in the database
+        updated_subscription = subscriptions_collection.find_one_and_update(
+            {"user_id": user_id},
+            {
+                "$set": {
+                    "status": "expired",
+                    "updated_at": datetime.now(timezone.utc),
+                }
+            },
+            return_document=True,
+        )
+
+        return updated_subscription, "Subscription updated successfully."
+    except Exception as e:
+        return None, f"An error occurred while updating the subscription: {str(e)}"
