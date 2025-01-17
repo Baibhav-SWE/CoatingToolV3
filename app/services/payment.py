@@ -1,6 +1,7 @@
 from flask import current_app as app
 from datetime import datetime, timezone
 from app.utils.database import get_payments_collection
+from bson import ObjectId
 
 
 def get_plan_type(product_id):
@@ -33,7 +34,7 @@ def get_pending_payment(user_id):
     payments_collection = get_payments_collection()
     return payments_collection.find_one(
         {
-            "user_id": user_id,
+            "user_id": ObjectId(user_id),
             "status": "pending",
         }
     )

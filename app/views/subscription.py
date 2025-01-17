@@ -14,26 +14,26 @@ from app.services.subscription import (
 )
 
 
-def create_checkout_url(product_variant_id):
-    return f"https://intelladapt.myshopify.com/cart/{product_variant_id}:1?channel=buy_button"
+def create_checkout_url(product_variant_id, email=""):
+    return f"https://intelladapt.myshopify.com/cart/{product_variant_id}:1?channel=buy_button&checkout[email]={email}"
 
 
-def get_checkout_urls():
+def get_checkout_urls(email=""):
     return {
         "basic": {
             "monthly": create_checkout_url(
-                app.config.get("BASIC_PRODUCT_MONTHLY_BUY_ID")
+                app.config.get("BASIC_PRODUCT_MONTHLY_BUY_ID"), email
             ),
             "yearly": create_checkout_url(
-                app.config.get("BASIC_PRODUCT_YEARLY_BUY_ID")
+                app.config.get("BASIC_PRODUCT_YEARLY_BUY_ID"), email
             ),
         },
         "premium": {
             "monthly": create_checkout_url(
-                app.config.get("PREMIUM_PRODUCT_MONTHLY_BUY_ID")
+                app.config.get("PREMIUM_PRODUCT_MONTHLY_BUY_ID"), email
             ),
             "yearly": create_checkout_url(
-                app.config.get("PREMIUM_PRODUCT_YEARLY_BUY_ID")
+                app.config.get("PREMIUM_PRODUCT_YEARLY_BUY_ID"), email
             ),
         },
     }
@@ -71,7 +71,7 @@ def activate_trial():
 @login_required
 def checkout():
     data = request.form
-    checkout_urls = get_checkout_urls()
+    checkout_urls = get_checkout_urls(session.get("email"))
     if not data["type"] or not data["plan"]:
         return redirect(url_for("app.subscription", error="Invalid subscription plan."))
     return redirect(checkout_urls[data["type"]][data["plan"]])
