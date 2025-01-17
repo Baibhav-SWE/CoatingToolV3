@@ -1,10 +1,126 @@
-
 body {
+    color: #F0F0F0;
+    font-family: 'Amiko', sans-serif;
+    /* padding-top: 64px; */
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: #F0F0F0;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-links a,
+.navbar button,
+.logout-desktop {
+    color: #F0F0F0;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.navbar a:hover,
+.logout-desktop:hover {
+    text-decoration: underline;
+}
+
+.menu-item {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu button {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+    background-color: #555;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 1rem;
+    position: absolute; /* Position relative to the navbar */
+    top: 100%; /* Places it below the hamburger */
+    right: 0;
+    left: 0; /* Makes it span the full width */
+    align-items: center;
+    z-index: 1001;
+}
+
+@media (max-width: 768px) {
+    .nav-links,
+    .logout-desktop {
+        display: none;
+    }
+    .hamburger-menu {
+        display: flex;
+    }
+    .mobile-menu.active {
+        display: flex;
+    }
+}
+
+.div-welcome {
     display: flex;
     min-height: 100vh;
-    color: #F0F0F0;
-    font-family: 'Amiko', sans-serif; 
 }
+
 .form-section {
     flex: 1;
     padding: 4rem;
@@ -60,60 +176,4 @@ input:focus {
 }
 .btn-primary:hover {
     background: #E0E0E0;
-}
-.navbar {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.7);
-}
-.navbar a,
-.navbar button {
-    color: #F0F0F0;
-    margin-left: 1rem;
-    margin-right: 1.5rem;
-    text-decoration: none;
-    vertical-align: middle;
-font-size: 1.1rem;
-}
-.navbar a:hover {
-    text-decoration: underline;
-}
-/* Dropdown Menu */
-.dropdown-menu {
-display: none; /* Ensure it is hidden by default */
-position: absolute;
-top: 100%; /* Position below the button */
-left: 0;
-background-color: #333; /* Dark background for dropdown */
-color: #fff; /* White text */
-padding: 0.5rem;
-border-radius: 0.5rem;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-z-index: 1000;
-}
-
-/* Show dropdown menu on hover */
-.dropdown:hover .dropdown-menu {
-display: block;
-}
-
-/* Ensure buttons in dropdown are styled properly */
-.dropdown-menu button {
-width: 100%;
-text-align: left;
-background: transparent;
-color: #fff;
-border: none;
-padding: 0.5rem 1rem;
-cursor: pointer;
-}
-
-/* Change button background on hover */
-.dropdown-menu button:hover {
-background-color: #555; /* Darker shade for hover */
 }

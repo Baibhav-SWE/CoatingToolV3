@@ -10,53 +10,51 @@
 {% endblock styles %}
 
 {% block body %}
+<div class="div-welcome">
+    <!-- Form Section -->
+    <div class="form-section">
+        <h1 class="design-parameters-title">COATING DESIGN PARAMETERS</h1>
+        <p class="mb-4">Please provide the following details to proceed with the simulation:</p>
+        <form action="/welcome" method="POST">
+            <div class="mb-4">
+                <label for="start_wavelength">Start Wavelength (nm):</label>
+                <input type="number" id="start_wavelength" name="start_wavelength" value="380" placeholder="380"
+                    required style="color: black;">
+            </div>
+            <div class="mb-4">
+                <label for="end_wavelength">End Wavelength (nm):</label>
+                <input type="number" id="end_wavelength" name="end_wavelength" value="1080" placeholder="1080" required
+                    style="color: black;">
+            </div>
+            <div class="mb-4">
+                <label for="glass_thickness">Glass Thickness (nm):</label>
+                <input type="number" id="glass_thickness" name="glass_thickness" value="320000" placeholder="320000"
+                    required style="color: black;">
+            </div>
+            <div class="mb-4">
+                <label for="theta">Theta (degrees):</label>
+                <input type="number" id="theta" name="theta" value="0" placeholder="0" required style="color: black;">
+            </div>
+            <div class="mb-4">
+                <label for="incoh">Incoherence:</label>
+                <input type="number" id="incoh" name="incoh" value="1000" placeholder="1000" required
+                    style="color: black;">
+            </div>
+            <button type="submit" class="btn-primary">Proceed to Stack Simulation</button>
+        </form>
+    </div>
 
-<!-- Form Section -->
-<div class="form-section">
-    <h1 class="design-parameters-title">COATING DESIGN PARAMETERS</h1>
-    <p class="mb-4">Please provide the following details to proceed with the simulation:</p>
-    <form action="/welcome" method="POST">
-        <div class="mb-4">
-            <label for="start_wavelength">Start Wavelength (nm):</label>
-            <input type="number" id="start_wavelength" name="start_wavelength" value="380" placeholder="380" required
-                style="color: black;">
-        </div>
-        <div class="mb-4">
-            <label for="end_wavelength">End Wavelength (nm):</label>
-            <input type="number" id="end_wavelength" name="end_wavelength" value="1080" placeholder="1080" required
-                style="color: black;">
-        </div>
-        <div class="mb-4">
-            <label for="glass_thickness">Glass Thickness (nm):</label>
-            <input type="number" id="glass_thickness" name="glass_thickness" value="320000" placeholder="320000"
-                required style="color: black;">
-        </div>
-        <div class="mb-4">
-            <label for="theta">Theta (degrees):</label>
-            <input type="number" id="theta" name="theta" value="0" placeholder="0" required style="color: black;">
-        </div>
-        <div class="mb-4">
-            <label for="incoh">Incoherence:</label>
-            <input type="number" id="incoh" name="incoh" value="1000" placeholder="1000" required style="color: black;">
-        </div>
-        <button type="submit" class="btn-primary">Proceed to Stack Simulation</button>
-    </form>
+    <!-- Image Section -->
+    <div class="image-section"></div>
+
+    <!-- Hidden File Input for Load Material -->
+    <input type="file" id="materialFileInput" class="hidden" accept=".csv" onchange="uploadMaterial()" />
 </div>
-
-<!-- Image Section -->
-<div class="image-section"></div>
-
-<!-- Hidden File Input for Load Material -->
-<input type="file" id="materialFileInput" class="hidden" accept=".csv" onchange="uploadMaterial()" />
-
 {% endblock body %}
 
 {% block scripts %}
 <script>
-    function redirectToIndex(action) {
-        const url = new URL(window.location.origin + '/');
-        url.searchParams.set('action', action);
-        window.location.href = url;
-    }
+    const mobileMenu = document.querySelector('.mobile-menu');
+    mobileMenu.classList.toggle('active');
 </script>
 {% endblock scripts %}

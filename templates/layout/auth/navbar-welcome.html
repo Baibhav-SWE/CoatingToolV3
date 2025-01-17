@@ -1,26 +1,37 @@
 <nav class="navbar">
-    <div class="flex space-x-4">
-        <a href="https://adaptivewaves.com/" target="_blank">
-            <img src="https://awi-three.vercel.app/AWILogo.svg" alt="AW Logo" class="h-8 w-auto">
-        </a>
-
-        <a href="/welcome">Home</a>
-        <!-- Load Dropdown -->
-        <div class="relative dropdown">
-            <button class="text-white">Load </button>
-            <div class="dropdown-menu">
-                <button class="block px-4 py-2 hover:bg-gray-200" onclick="redirectToIndex('openDesign')">Open
-                    Design</button>
-                <button class="block px-4 py-2 hover:bg-gray-200"
-                    onclick="document.getElementById('materialFileInput').click();">Load Material</button>
+    <div class="flex items-center justify-between w-full">
+        <div class="flex items-center">
+            <a href="https://adaptivewaves.com/" target="_blank" class="mr-10">
+                <img src="https://awi-three.vercel.app/AWILogo.svg" alt="AW Logo" class="h-8 w-auto">
+            </a>
+            <div class="nav-links">
+                {% include 'layout/auth/menu-list.html' %}
             </div>
         </div>
-
-        <a href="/public_designs">All Designs</a>
-        <a href="/help">Help</a>
+        <div class="flex items-center space-x-4">
+            <span class="welcome-text">Welcome, {{ first_name }}!</span>
+            <a href="/logout" class="logout-desktop">Logout</a>
+            <button class="hamburger-menu" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </div>
-    <div class="flex space-x-4">
-        <span>Welcome, {{ first_name }}!</span>
+    <div class="mobile-menu">
+        {% include 'layout/auth/menu-list.html' %}
         <a href="/logout">Logout</a>
     </div>
 </nav>
+
+
+{% block scripts %}
+<script>
+    const hamburger = document.querySelector('.hamburger-menu');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');  // Toggle the 'active' class
+    });
+</script>
+{% endblock scripts %}

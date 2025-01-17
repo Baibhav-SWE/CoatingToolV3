@@ -5,6 +5,7 @@ body {
     background-color: #1B263B;
     /* Dark Blue Background */
     font-family: 'Amiko', sans-serif;
+    overflow: hidden;
 }
 
 .form-container {
@@ -14,8 +15,10 @@ body {
     color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
 }
 
 .form-container h1 {

@@ -16,19 +16,19 @@ from scipy.optimize import differential_evolution
 from color_chart import plot_color_chart
 from email.mime.text import MIMEText
 from shopify_webhooks.routes import shopify_bp
-from app.utils.database import init_db, get_db, get_users_collection
+from app.utils.database import db,init_db, get_db, get_users_collection
 from app.decorators import login_required, subscription_required
 
 # Temporary storage for OTPs (use a database or Redis in production)
 otp_storage = {}
 
 # Directory containing CSV material files
-materials_directory = r"C:\Coatingtool\output_csv_files"
-UPLOAD_FOLDER = r"C:\Coatingtool\output_csv_files"
+materials_directory = r"C:\Coatingtool/output_csv_files"
+UPLOAD_FOLDER = r"C:\Coatingtool/output_csv_files"
 UPLOADS_DIRECTORY = os.path.join(
     UPLOAD_FOLDER, "uploads"
 )  # Path for user-uploaded files
-GLS_FILE_PATH = r"C:\Coatingtool\GLS_NEW.csv"
+GLS_FILE_PATH = r"C:\Coatingtool/GLS_NEW.csv"
 
 # Ensure both the main upload directory and the uploads subfolder exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)

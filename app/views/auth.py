@@ -37,7 +37,7 @@ def login():
                 )  # Redirect to subscription page
 
             # Redirect to the original page or materials page
-            next_page = request.args.get("next", url_for("app.materials"))
+            next_page = request.args.get("next", url_for("app.index"))
             return redirect(next_page)
         else:
             return render_template("auth/login.html", error="Invalid email or password")
