@@ -1,21 +1,37 @@
-<div class="navbar">
-  <!-- Left section for Upload New Material -->
-  <div class="navbar-left">
-    <a href="https://adaptivewaves.com/" target="_blank">
-      <img src="https://awi-three.vercel.app/AWILogo.svg" alt="AW Logo" style="width: 100px; height: auto;">
-    </a>
+<nav class="navbar">
+    <div class="flex items-center justify-between w-full">
+        <div class="flex items-center">
+            <a href="https://adaptivewaves.com/" target="_blank" class="mr-10">
+                <img src="https://awi-three.vercel.app/AWILogo.svg" alt="AW Logo" class="h-8 w-auto">
+            </a>
+            <div class="nav-links">
+                {% include 'layout/auth/menu-list.html' %}
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <span class="welcome-text">Welcome, {{ first_name }}!</span>
+            <a href="/logout" class="logout-desktop">Logout</a>
+            <button class="hamburger-menu" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+    <div class="mobile-menu">
+        {% include 'layout/auth/menu-list.html' %}
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
 
-    <button onclick="document.getElementById('materialFileInput').click();">Upload Material</button>
-    <a href="/welcome">Set Up Environment</a>
-  </div>
 
-  <!-- Right section for Help, Documentation, and Logout -->
-  <div class="navbar-right">
-    <span>Welcome, {{ first_name }}!</span>
-    <a href="/help" style="background-color: #444;">Help</a> <!-- Added Help Link -->
-    <a href="/static/Documentation.pdf" download="Documentation.pdf" style="background-color: #444;">Documentation</a>
-    <!-- Added Documentation Link -->
+{% block scripts %}
+<script>
+    const hamburger = document.querySelector('.hamburger-menu');
+    const mobileMenu = document.querySelector('.mobile-menu');
 
-    <a href="/logout">Logout</a>
-  </div>
-</div>
+    hamburger.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');  // Toggle the 'active' class
+    });
+</script>
+{% endblock scripts %}

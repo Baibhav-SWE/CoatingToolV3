@@ -1,19 +1,538 @@
 body {
+    color: #F0F0F0;
+    font-family: 'Amiko', sans-serif;
+    /* padding-top: 64px; */
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    color: #F0F0F0;
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-links a,
+.navbar button {
+    color: #F0F0F0;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.logout-desktop {
+    color: #fff;
+    text-decoration: none;
+    background-color: #444; /* Dark button color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+.logout-desktop:hover {
+    background-color: #666; /* Slightly lighter hover color */
+}
+
+
+.menu-item {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.menu-item:hover {
+    text-decoration: underline;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu button {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+    background-color: #555;
+}
+
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 1rem;
+    position: absolute; /* Position relative to the navbar */
+    top: 100%; /* Places it below the hamburger */
+    right: 0;
+    left: 0; /* Makes it span the full width */
+    align-items: center;
+    z-index: 1001;
+}
+
+@media (max-width: 768px) {
+    .nav-links,
+    .logout-desktop {
+        display: none;
+    }
+    .hamburger-menu {
+        display: flex;
+    }
+    .mobile-menu.active {
+        display: flex;
+    }
+}
+
+.div-welcome {
     display: flex;
     min-height: 100vh;
-    color: #080808;
-    background-color: #1B263B; /* Dark Blue Background */
-    margin: 0;
-    font-family: 'Amiko', sans-serif; 
 }
+
+.div-help {
+    background-color: #1B263B;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    overflow: auto;
+}
+
+.help-container {
+    background-color: #0A2540;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* padding: 20px; */
+    /* max-width: 900px; */
+    /* margin: 80px auto; */
+    /* Adjust margin for space below navbar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 900px;
+    padding: 6rem 2rem 4rem;
+}
+
+.help-section {
+    padding-bottom: 1.5rem;
+}
+
+.help-text {
+    color: #FF3B3F;
+}
+
+.btn {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-blue {
+    background-color: #007BFF;
+    color: white;
+}
+
+.btn-blue:hover {
+    background-color: #0056b3;
+}
+
+.btn-red {
+    background-color: #FF3B3F;
+    color: white;
+}
+
+.btn-red:hover {
+    background-color: #cc3232;
+}
+
+.graphic {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.graphic img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.div-materials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 6rem;
+}
+
+.div-materials::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/static/images/lab_image.png') no-repeat center center;
+    background-size: cover;
+    opacity: 0.5; /* Adjust the opacity for the background image */
+    z-index: -2; /* Place it behind the content and overlay */
+}
+
+.div-materials::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay for better contrast */
+    backdrop-filter: blur(3px);
+    z-index: -1; /* Behind content, above the background image */
+}
+
+#materials-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #1B263B; /* Ensure material container matches background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+}
+
+.material-heading {
+    text-align: center;
+    margin: 20px 0;
+    color: #4F74A5; /* Blue color that matches the webpage theme */
+    font-size: 2.5rem; /* Slightly larger font size */
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6); /* Add shadow for better contrast */
+}
+
+.material-subheading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #D1F2F2; /* Light color for better readability */
+    font-size: 1.2rem;
+}
+
+.material-folder {
+    margin-bottom: 15px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.material-folder h3 {
+    background-color: #0A2540; /* Dark header for folders */
+    color: #F0F0F0;
+    padding: 10px;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid #ccc;
+}
+.material-files {
+    padding: 10px 20px;
+    display: none;
+}
+.material-file {
+    background-color: #F0F0F0; /* Light color for file rows */
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.material-file button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.material-file button:hover {
+    background-color: #0056b3;
+}
+
+.form-section {
+    flex: 1;
+    padding: 4rem;
+    background-color: #1B263B;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.div-welcome .image-section {
+    flex: 1;
+    background-image: url('/static/images/IMG_4980.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.design-parameters-title {
+    font-size: 2rem; /* Increased font size */
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #fffefe; /* Updated color */
+    font-weight: bold;
+}
+label {
+    color: #D1F2F2;
+}
+input, select {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    color: #000; /* Explicit black text color */
+    font-size: 1.1rem;
+}
+
+input::placeholder {
+    color: #333; /* Dark grey for placeholder text */
+}
+input:focus {
+    outline: none;
+    background: #FFF;
+    color: #000; /* Ensure text color remains black when focused */
+}
+.btn-primary {
+    background: #F0F0F0;
+    color: #1B263B;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    width: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.btn-primary:hover {
+    background: #E0E0E0;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Adjust opacity for contrast */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content {
+background: #2E3B4E; /* Dark background for modal content */
+width: 60%; /* Adjusted width for better visibility */
+max-height: 80%;
+overflow-y: auto;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+.modal-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 10px;
+color: #ffffff; /* White text color for the header */
+}
+.modal-header h2 {
+margin: 0;
+}
+.close-button {
+background: #ff4d4d;
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+padding: 5px 10px;
+}
+.close-button:hover {
+background: #e60000;
+}
+
+.div-public-designs {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Ensure full-width content */
+    height: 100%; /* Ensure the body takes the full height of the viewport */
+    box-sizing: border-box; /* Include padding and borders in element's dimensions */
+    background-color: #1B263B;
+}
+
+.content-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+}
+
+.design-container {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #0A2540;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.design {
+    background-color: #fff;
+    padding: 1.5rem;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+.design-name {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.design-name:hover {
+    color: #0056b3;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup {
+background-color: #fff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+width: 80%;
+max-width: 600px;
+max-height: 80%;
+overflow-y: auto;
+text-align: left;
+color: #1B263B; /* Dark text color for better contrast */
+}
+
+.popup h2 {
+margin-top: 0;
+color: #1B263B; /* Ensure header is dark */
+}
+
+.popup p {
+color: #333; /* Darker text for better readability */
+}
+
+.close-btn {
+background-color: #e74c3c;
+color: #fff;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+float: right;
+}
+
+.close-btn:hover {
+background-color: #c0392b;
+}
+
+.apply-btn {
+background-color: #1B263B;
+color: #fff;
+border: none;
+padding: 10px 20px;
+border-radius: 5px;
+cursor: pointer;
+margin-top: 10px;
+}
+
+.apply-btn:hover {
+background-color: #0A2540;
+}
+
+.div-index {
+    background-color: #1B263B;
+    overflow: auto;
+}
+
+.div-index-form {
+    display: flex;
+    flex-direction: row;
+}
+
 #simulationModal {
     z-index: 1000; /* Ensure it is above other elements */
     overflow-y: auto;
 }
-.form-section {
+.index-form-section {
     flex: 1;
-    padding: 3rem;
-    margin-top: 2rem;
+    padding-top: 6rem;
     position: relative; /* Required for layering */
     display: flex;
     flex-direction: column;
@@ -21,9 +540,10 @@ body {
     align-items: center;
     z-index: 1; /* Ensure this section is above the background */
     color: #ffffff; /* Ensure text is visible */
+    overflow: hidden; /* Prevent content overflow if necessary */
 }
 
-.form-section::before {
+.index-form-section::before {
     content: '';
     position: absolute;
     top: 0;
@@ -35,194 +555,38 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     filter: blur(4px); /* Blur the background */
-    z-index: -1; /* Push it behind the content */
-    opacity: 0.5; /* Add some transparency if needed */
+    z-index: -2; /* Push it further behind the overlay */
+    opacity: 0.7; /* Adjust this for more transparency */
 }
 
-.form-section > * {
-    position: relative; /* Keep the content above the blurred background */
-    z-index: 2; /* Ensure form elements are on top */
-}
-
-/* Navbar Styles */
-.navbar {
-    position: fixed;
+.index-form-section::after {
+    content: '';
+    position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    padding: 3rem 5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #000000; /* Black Navbar */
-    color: #ffffff;
-    z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.navbar a,
-.navbar button {
-    color: #ffffff;
-    margin-left: 1rem;
-    margin-right: 1.5rem;
-    text-decoration: none;
-    vertical-align: middle;
-    font-size: 1.1rem;
-    border: none; /* No borders for buttons */
-    cursor: pointer; /* Ensure buttons behave like links */
-}
-
-/* Hover Effect for Navbar Links */
-.navbar a:hover,
-.navbar button:hover {
-    text-decoration: none;
-}
-
-
-
-
-
-
-/* Input Field Styles */
-input {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid #ffffff;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
     width: 100%;
-    color: #000; /* Black text color */
-    font-size: 1.1rem;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay */
+    z-index: -1; /* Above background image, below content */
 }
 
-.i{
- color: #000;
-}
-
-input:focus {
+.index-form-section input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 1.2em;
+    height: 1.2em;
+    border: 2px solid #fff;
+    border-radius: 50%;
     outline: none;
-    background: #ffffff;
-    color: #000;
-}
-
-/* Button Styles */
-.btn-primary {
-    background: #000000;
-    color: #ffffff;
-    border: 1px solid #e64f4f;
-    border-radius: 0.5rem;
-    padding: 1rem 2rem;
-    font-weight: bold;
+    background-color: transparent;
     cursor: pointer;
-    width: 100%;
-    max-width: 400px;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
-.btn-secondary {
-    background: #000000;
-    color: #ffffff;
-    border: 1px solid #ffffff;
-    border-radius: 0.5rem;
-    padding: 1rem 2rem;
-    font-weight: bold;
-    cursor: pointer;
-    width: 50%;
-    max-width: 200px;
-}
-
-.btn-secondary:hover {
-    background: #e0e0e0;
-    color: #0A2540;
-}
-
-.btn-primary:hover {
-    background: #e0e0e0;
-    color: #0A2540;
-}
-
-/* Image Section */
-.image-section {
-    flex: 1;
-    background-image: url('/static/images/IMG_4893.jpeg');
-    background-size: cover;
-    background-position: center;
-}
-
-/* Label Styles */
-label {
-    color: #D1F2F2;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.relative {
-    position: relative;
-}
-
-
-/* Show the menu on hover */
-.relative:hover .dropdown-menu {
-    display: block;
-}
-
-/* Dropdown Menu Styles */
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    background-color: #333; /* Dark background for the dropdown */
-    color: #fff; /* White text color */
-    padding: 0.5rem 0; /* Add vertical padding only */
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    min-width: 150px; /* Set a minimum width for the dropdown */
-}
-
-/* Dropdown Menu Button Styles */
-.dropdown-menu button {
-    display: block;
-    width: 100%; /* Ensure buttons take full width of the dropdown */
-    padding: 0.5rem 1rem; /* Adjust padding for better alignment */
-    text-align: left; /* Align text to the left */
-    background: transparent; /* Remove background for consistency */
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-
-/* Hover Effect for Menu Items */
-.dropdown-menu button:hover {
-    background-color: #555; /* Slightly lighter background */
-}
-
-
-/* Dropdown Button Styles */
-.navbar .dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-/* Navbar Button Styling */
-.navbar button {
-    background: none; /* No background for dropdown toggle */
-    color: #fff; /* Ensure white text */
-    border: none;
-    cursor: pointer;
-}
-
-/* Material Select and Input Styles */
-.material-select,
-.thickness-input {
-    color: #ffffff;
-    background-color: #0A2540;
-    border: 1px solid #ffffff;
-}
-
-/* Center Form Content */
-.max-w-4xl {
-    max-width: 600px;
-    margin: 0 auto;
+.index-form-section input[type="radio"]:checked {
+    background-color: #4F46E5;
+    border-color: #4F46E5;
 }
 
 /* Layer Input Row */
@@ -273,106 +637,106 @@ label {
     /* Other styles */
 }
 
-.main-container {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space between the form and stack */
-    align-items: flex-start; /* Align items at the start */
-    padding: 20px; /* Add some padding */
-}
 
-.form-section {
-    flex: 1; /* Allow the form section to take available space */
-    margin-right: 20px; /* Add some space between the form and stack */
-    background-color:#1B263B;
-}
-
-.stack-section {
-    width: 300px; /* Set a fixed width for the stack section */
-    /* You can adjust the width as needed */
-    background-color: #f0f0f0; /* Optional: Add a background color for visibility */
-    padding: 10px; /* Optional: Add some padding */
-    border-radius: 5px; /* Optional: Add rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
-    background-color: #0A2540;
-}
-/* styles.css */
-
-
-/* Graphs inside the graph section */
-#combinedGraph, #transmittanceGraph, #reflectanceGraph {
+.div-index-btn .btn-primary {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid #e64f4f;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    cursor: pointer;
     width: 100%;
-    height: 400px; /* Set a fixed height for the graphs */
+    max-width: 400px;
 }
 
-#savedDesignsModal {
-    display: none;
-    z-index: 1000;
+.div-index-btn .btn-primary:hover {
+    background: #e0e0e0;
+    color: #0A2540;
 }
 
-#savedDesignsModal.hidden {
-    display: none;
+.btn-secondary {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 50%;
+    max-width: 200px;
 }
 
-#savedDesignsModal:not(.hidden) {
-    display: flex;
+.btn-secondary:hover {
+    background: #e0e0e0;
+    color: #0A2540;
 }
 
-#designsList {
-    border: 1px solid #ccc;
-    padding: 10px;
-    background: #f9f9f9;
+/* Image Section */
+.div-index .image-section {
+    flex: 1;
+    background-image: url('/static/images/IMG_4893.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Label Styles */
+label {
+    color: #D1F2F2;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.relative {
+    position: relative;
+}
+
+
+/* Show the menu on hover */
+.relative:hover .dropdown-menu {
+    display: block;
+}
+
+.public-h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.footer h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.footer .btn {
+    margin-top: 10px;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
     border-radius: 5px;
 }
 
-#designsList div:hover {
-    background-color: #f0f0f0;
-    cursor: pointer;
-}
-
-.hidden {
-    display: none;
-}
-
-.flex {
-    display: flex;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.justify-center {
-    justify-content: center;
-}
-
-.bg-black {
-    background-color: black;
-}
-
-.bg-opacity-50 {
-    background-opacity: 0.5;
-}
-
-.rounded-lg {
-    border-radius: 0.5rem;
-}
-
-.p-6 {
-    padding: 1.5rem;
-}
-
-.max-w-3xl {
-    max-width: 768px;
-}
-
-.w-full {
-    width: 100%;
-}
-
-.overflow-y-auto {
-    overflow-y: auto;
-}
-
-.max-h-96 {
-    max-height: 24rem;
+.footer .btn:hover {
+    background-color: #0056b3;
 }

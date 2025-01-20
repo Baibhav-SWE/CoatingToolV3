@@ -6,31 +6,32 @@
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/public_designs.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock styles %}
 
 {% block body %}
 
-<!-- Content Section -->
-<div class="content-section">
-    <h1>Public Coating Designs</h1>
-    <div class="design-container" id="designContainer">
-        <!-- Public designs will be dynamically loaded here -->
-    </div>
-</div>
-
-<!-- Popup Modal -->
-<div class="popup-overlay" id="popupOverlay">
-    <div class="popup">
-        <button class="close-btn" id="closePopupBtn">Close</button>
-        <h2 id="popupTitle">Design Details</h2>
-        <div id="popupContent">
-            <!-- Design details will be loaded here -->
+<div class="div-public-designs">
+    <!-- Content Section -->
+    <div class="content-section">
+        <h1 class="public-h1">Public Coating Designs</h1>
+        <div class="design-container" id="designContainer">
+            <!-- Public designs will be dynamically loaded here -->
         </div>
-        <!-- Apply Design Button -->
-        <button class="apply-btn" id="applyDesignBtn">Apply Design</button>
     </div>
-</div>
+
+    <!-- Popup Modal -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <button class="close-btn" id="closePopupBtn">Close</button>
+            <h2 id="popupTitle">Design Details</h2>
+            <div id="popupContent">
+                <!-- Design details will be loaded here -->
+            </div>
+            <!-- Apply Design Button -->
+            <button class="apply-btn" id="applyDesignBtn">Apply Design</button>
+        </div>
+    </div>
 
 </div>
 <footer class="footer">

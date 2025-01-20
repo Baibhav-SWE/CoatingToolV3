@@ -6,83 +6,86 @@
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock styles %}
 
 {% block body %}
 
-<!-- Help Content -->
-<div class="help-container mt-8">
-    <h1>Help - AWI Coating AI Tool</h1>
+<div class="div-help">
+    <!-- Help Content -->
+    <div class="help-container">
+        <h1 class="help-text">Help - AWI Coating AI Tool</h1>
 
-    <!-- Overview -->
-    <section class="section">
-        <h2>About the AWI Coating AI Tool</h2>
-        <p>The AWI Coating AI Tool is designed to help you model and analyze optical coating designs with multiple
-            layers. These layers control transmittance, reflectance, and absorbance to optimize your design.</p>
-    </section>
+        <!-- Overview -->
+        <section class="section help-section">
+            <h2 class="help-text">About the AWI Coating AI Tool</h2>
+            <p>The AWI Coating AI Tool is designed to help you model and analyze optical coating designs with multiple
+                layers. These layers control transmittance, reflectance, and absorbance to optimize your design.</p>
+        </section>
 
-    <!-- Steps to Create a New Design -->
-    <section class="section">
-        <h2>Steps to Create a New Design</h2>
-        <div class="mb-4">
-            <h3 class="text-lg font-semibold" style="color: #FF3B3F;">Step 1: Explore Materials</h3>
-            <p>Check out the available materials or upload your own material in CSV format. The file should have
-                three columns: wavelength, n, k.</p>
-        </div>
-        <div class="mb-4">
-            <h3 class="text-lg font-semibold" style="color: #FF3B3F;">Step 2: Set Up Environment</h3>
-            <p>Enter parameters like start and end wavelength and incoherence. Load existing designs if required.
-            </p>
-        </div>
-        <div class="mb-4">
-            <h3 class="text-lg font-semibold" style="color: #FF3B3F;">Step 3: Build Your Design</h3>
-            <p>Add front or back layers, choose materials, and set thicknesses. Click <strong>Calculate</strong> to
-                see results or <strong>Create Stack</strong> to visualize.</p>
-        </div>
-        <div class="mb-4">
-            <h3 class="text-lg font-semibold" style="color: #FF3B3F;">Step 4: Interactive Simulation</h3>
-            <p>Experiment with thickness changes and apply them to your design. Save your design as public or
-                private.</p>
-        </div>
-    </section>
+        <!-- Steps to Create a New Design -->
+        <section class="section">
+            <h2 class="help-text">Steps to Create a New Design</h2>
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold" style="color: #FF3B3F;">Step 1: Explore Materials</h3>
+                <p>Check out the available materials or upload your own material in CSV format. The file should have
+                    three columns: wavelength, n, k.</p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold" style="color: #FF3B3F;">Step 2: Set Up Environment</h3>
+                <p>Enter parameters like start and end wavelength and incoherence. Load existing designs if required.
+                </p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold" style="color: #FF3B3F;">Step 3: Build Your Design</h3>
+                <p>Add front or back layers, choose materials, and set thicknesses. Click <strong>Calculate</strong> to
+                    see results or <strong>Create Stack</strong> to visualize.</p>
+            </div>
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold" style="color: #FF3B3F;">Step 4: Interactive Simulation</h3>
+                <p>Experiment with thickness changes and apply them to your design. Save your design as public or
+                    private.</p>
+            </div>
+        </section>
 
-    <!-- Redirect Buttons -->
-    <div class="text-center">
-        <button class="btn btn-blue" onclick="window.location.href='/public_designs'">
-            <svg class="icon inline-block w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-3-7h6v2H7v-2z" clip-rule="evenodd">
-                </path>
-            </svg>
-            View All Designs
-        </button>
-        <a href="/static/Documentation.pdf" download="Documentation.pdf" class="btn btn-red">
-            <svg class="icon inline-block w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                    d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm2 5a1 1 0 011-1h4a1 1 0 010 2H8a1 1 0 01-1-1zm0 4a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z"
-                    clip-rule="evenodd"></path>
-            </svg>
-            Download Documentation
-        </a>
+        <!-- Redirect Buttons -->
+        <div class="text-center">
+            <button class="btn btn-blue" onclick="window.location.href='/public_designs'">
+                <svg class="icon inline-block w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-3-7h6v2H7v-2z" clip-rule="evenodd">
+                    </path>
+                </svg>
+                View All Designs
+            </button>
+            <a href="/static/Documentation.pdf" download="Documentation.pdf" class="btn btn-red">
+                <svg class="icon inline-block w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm2 5a1 1 0 011-1h4a1 1 0 010 2H8a1 1 0 01-1-1zm0 4a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                Download Documentation
+            </a>
+        </div>
+
+        <!-- Graphics -->
+        <section class="graphic">
+            <h2 style="color: #FF3B3F;">See the Tool in Action</h2>
+            <p>Explore the possibilities of optical coatings with a simple and interactive user interface.</p>
+            <img src="/static/images/help_graphic.png" alt="AWI Tool Graphic">
+        </section>
+
+        <!-- <footer class="footer">
+            <h2>Contact Us</h2>
+            <p>100 Morrissey Boulevard</p>
+            <p>Boston, MA 02125</p>
+            <p>info@adaptivewaves.com</p>
+            <p>&copy; 2024 – AdaptiveWaves Inc. All Rights Reserved</p>
+            <button class="btn" onclick="window.location.href='feedback.html'">Give Feedback</button>
+        </footer> -->
     </div>
 
-    <!-- Graphics -->
-    <section class="graphic">
-        <h2 style="color: #FF3B3F;">See the Tool in Action</h2>
-        <p>Explore the possibilities of optical coatings with a simple and interactive user interface.</p>
-        <img src="/static/images/help_graphic.png" alt="AWI Tool Graphic">
-    </section>
 </div>
-
-<footer class="footer">
-    <h2>Contact Us</h2>
-    <p>100 Morrissey Boulevard</p>
-    <p>Boston, MA 02125</p>
-    <p>info@adaptivewaves.com</p>
-    <p>&copy; 2024 – AdaptiveWaves Inc. All Rights Reserved</p>
-    <button class="btn" onclick="window.location.href='feedback.html'">Give Feedback</button>
-</footer>
 
 {% endblock body %}

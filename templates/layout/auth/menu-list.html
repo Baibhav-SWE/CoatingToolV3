@@ -1,4 +1,6 @@
 <a class="menu-item" href="/welcome">Home</a>
+
+{% if request.path == url_for('app.welcome') %}
 <div class="relative dropdown">
     <button class="menu-item text-white">Load</button>
     <div class="dropdown-menu">
@@ -6,5 +8,62 @@
         <button onclick="document.getElementById('materialFileInput').click();">Load Material</button>
     </div>
 </div>
+{% endif %}
+
+{% if request.path == url_for('app.index') %}
+<!-- Load Dropdown -->
+<div class="relative dropdown">
+    <button class="menu-item">Load </button>
+    <div class="dropdown-menu">
+        <button onclick="openDesign()">Open Design</button>
+        <button onclick="document.getElementById('materialFileInput').click();">Load Material</button>
+    </div>
+</div>
+
+<!-- Save Button -->
+<button onclick="saveDesign()">Save</button>
+
+<!-- Downloads Dropdown -->
+<div class="relative dropdown">
+    <button class="menu-item">Downloads</button>
+    <div class="dropdown-menu">
+        <button onclick="downloadGraph()">Graph (JPEG)</button>
+        <button onclick="downloadCSV()">Data (CSV)</button>
+        <button onclick="downloadPDF()">Data (PDF)</button>
+        <button onclick="downloadDesignJSON()">Design (JSON)</button>
+    </div>
+</div>
+
+<!-- Results Dropdown -->
+<div class="relative dropdown">
+    <button class="menu-item">Results</button>
+    <div class="dropdown-menu">
+        <button onclick="showTransmittance()">Show Transmittance</button>
+        <button onclick="showReflectance()">Show Reflectance</button>
+        <button onclick="openColorChart()">Color Chart</button>
+    </div>
+</div>
+{% endif %}
+
+{% if request.path in [url_for('app.welcome'), url_for('app.index')] %}
 <a class="menu-item" href="/public_designs">All Designs</a>
+{% endif %}
+
+{% if request.path == url_for('app.help') %}
+<a class="menu-item" href="/load-design">Load Design</a>
+{% endif %}
+
+{% if request.path == url_for('app.materials') %}
+<button class="menu-item" onclick="document.getElementById('materialFileInput').click();">Upload Material</button>
+<a class="menu-item" href="/welcome">Set Up Environment</a>
+{% endif %}
+
+{% if request.path == url_for('app.public_designs') %}
+<a class="menu-item" href="/">New Design</a>
+{% endif %}
+
 <a class="menu-item" href="/help">Help</a>
+
+{% if request.path == url_for('app.materials') %}
+<a class="menu-item" href="/static/Documentation.pdf" download="Documentation.pdf">Documentation</a>
+{% endif %}

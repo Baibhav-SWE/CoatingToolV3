@@ -6,41 +6,44 @@
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/material.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock styles %}
 
 {% block body %}
-<!-- New Heading and Subheading -->
-<div class="heading">Available Materials in Dataset</div>
-<div class="subheading">If you want to add your own material, please click "Upload Material"</div>
-
-
-<div id="materials-container">
-    <!-- Dynamic content will be injected here -->
-</div>
-
-<input type="file" id="materialFileInput" name="file" accept=".csv" style="display:none;" onchange="uploadMaterial()">
-
-<!-- Modal for Material Preview -->
-<div id="previewModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2 id="modalTitle">Material Preview</h2>
-            <button class="close-button" onclick="closeModal()">Close</button>
-        </div>
-        <pre id="modalBody"></pre>
+<div class="div-materials">
+    <!-- New Heading and Subheading -->
+    <div class="heading material-heading">Available Materials in Dataset</div>
+    <div class="subheading material-subheading">If you want to add your own material, please click "Upload Material"
     </div>
+
+
+    <div id="materials-container">
+        <!-- Dynamic content will be injected here -->
+    </div>
+
+    <input type="file" id="materialFileInput" name="file" accept=".csv" style="display:none;"
+        onchange="uploadMaterial()">
+
+    <!-- Modal for Material Preview -->
+    <div id="previewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Material Preview</h2>
+                <button class="close-button" onclick="closeModal()">Close</button>
+            </div>
+            <pre id="modalBody"></pre>
+        </div>
+    </div>
+
+    <!-- <footer class="footer">
+        <h2>Contact Us</h2>
+        <p>100 Morrissey Boulevard</p>
+        <p>Boston, MA 02125</p>
+        <p>info@adaptivewaves.com</p>
+        <p>&copy; 2024 – AdaptiveWaves Inc. All Rights Reserved</p>
+        <button class="btn" onclick="window.location.href='feedback.html'">Give Feedback</button>
+    </footer> -->
 </div>
-
-<footer class="footer">
-    <h2>Contact Us</h2>
-    <p>100 Morrissey Boulevard</p>
-    <p>Boston, MA 02125</p>
-    <p>info@adaptivewaves.com</p>
-    <p>&copy; 2024 – AdaptiveWaves Inc. All Rights Reserved</p>
-    <button class="btn" onclick="window.location.href='feedback.html'">Give Feedback</button>
-</footer>
-
 {% endblock body %}
 
 {% block scripts %}
