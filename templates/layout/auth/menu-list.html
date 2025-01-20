@@ -62,7 +62,9 @@
 <a class="menu-item" href="/">New Design</a>
 {% endif %}
 
+{% if request.path not in [url_for('app.subscription'), url_for('app.public_designs')] %}
 <a class="menu-item" href="/help">Help</a>
+{% endif %}
 
 {% if request.path == url_for('app.materials') %}
 <a class="menu-item" href="/static/Documentation.pdf" download="Documentation.pdf">Documentation</a>

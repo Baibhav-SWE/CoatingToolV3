@@ -1,4 +1,4 @@
-{% extends 'layout/layout.html' %}
+{% extends 'layout/auth/layout.html' %}
 
 {% block head %}
 <title>Subscription - AW SpectraCoat™ Studio</title>
@@ -6,11 +6,11 @@
 
 {% block styles %}
 {{super()}}
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/material.css') }}"> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock styles %}
 
 {% block body %}
-<div class="w-full flex flex-col">
+<div class="div-subscription w-full flex flex-col pt-20">
   <div class="my-6 text-center">
     <h1 class="text-[3.5rem] font-bold shadow-black/40 m-0">
       Choose Your Subscription Plan
