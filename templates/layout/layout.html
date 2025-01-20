@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block head %}{% endblock head %} {% block styles %}
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/tailwind.css') }}"
+    />
+    {% endblock styles %}
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% block head %}{% endblock head %}
-  {% block styles %}
-  <link href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  {% endblock styles %}
-</head>
+  <body>
+    {% if request.path in [url_for('app.feedback'), url_for('app.login'),
+    url_for('app.register')] %} {% else %} {% include 'layout/navbar.html' %} {%
+    endif %} {% block body %}{% endblock body %}
+  </body>
 
-<body>
-  {% if request.path in [url_for('app.feedback'), url_for('app.login'), url_for('app.register')] %}
-  {% else %}
-  {% include 'layout/navbar.html' %}
-  {% endif %}
-
-  {% block body %}{% endblock body %}
-</body>
-
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/api.js') }}"></script>
-{% endblock scripts %}
-
+  {% block scripts %}
+  <script src="{{ url_for('static', filename='js/api.js') }}"></script>
+  {% endblock scripts %}
 </html>
