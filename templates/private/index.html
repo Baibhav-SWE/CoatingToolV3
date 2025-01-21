@@ -1334,55 +1334,55 @@
 
     });
 
-    document.getElementById('saveDesignForm').addEventListener('submit', function (event) {
-        event.preventDefault();
+    // document.getElementById('saveDesignForm').addEventListener('submit', function (event) {
+    //     event.preventDefault();
 
-        const designName = document.getElementById('designName').value;
-        const visibility = document.querySelector('input[name="visibility"]:checked').value;
+    //     const designName = document.getElementById('designName').value;
+    //     const visibility = document.querySelector('input[name="visibility"]:checked').value;
 
-        // Collect all design data
-        const frontLayers = getLayerData('frontLayers');
-        const backLayers = getLayerData('backLayers');
-        const glassThickness = parseFloat(document.getElementById('dgls').value);
-        const startWavelength = parseFloat(document.getElementById('start_wavelength').value);
-        const endWavelength = parseFloat(document.getElementById('end_wavelength').value);
-        const theta = parseFloat(document.getElementById('theta').value);
-        const incoh = parseFloat(document.getElementById('incoh').value);
+    //     // Collect all design data
+    //     const frontLayers = getLayerData('frontLayers');
+    //     const backLayers = getLayerData('backLayers');
+    //     const glassThickness = parseFloat(document.getElementById('dgls').value);
+    //     const startWavelength = parseFloat(document.getElementById('start_wavelength').value);
+    //     const endWavelength = parseFloat(document.getElementById('end_wavelength').value);
+    //     const theta = parseFloat(document.getElementById('theta').value);
+    //     const incoh = parseFloat(document.getElementById('incoh').value);
 
-        const designData = {
-            name: designName,
-            visibility: visibility,
-            frontMaterials: frontLayers.materials,
-            frontThicknesses: frontLayers.thicknesses,
-            backMaterials: backLayers.materials,
-            backThicknesses: backLayers.thicknesses,
-            glassThickness: glassThickness,
-            startWavelength: startWavelength,
-            endWavelength: endWavelength,
-            theta: theta,
-            incoh: incoh
-        };
+    //     const designData = {
+    //         name: designName,
+    //         visibility: visibility,
+    //         frontMaterials: frontLayers.materials,
+    //         frontThicknesses: frontLayers.thicknesses,
+    //         backMaterials: backLayers.materials,
+    //         backThicknesses: backLayers.thicknesses,
+    //         glassThickness: glassThickness,
+    //         startWavelength: startWavelength,
+    //         endWavelength: endWavelength,
+    //         theta: theta,
+    //         incoh: incoh
+    //     };
 
-        fetch('/save_design', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(designData),
-        })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    alert("Design saved successfully!");
-                } else {
-                    alert("Error saving design: " + result.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while saving the design.');
-            });
-    });
+    //     fetch('/save_design', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(designData),
+    //     })
+    //         .then(response => response.json())
+    //         .then(result => {
+    //             if (result.success) {
+    //                 alert("Design saved successfully!");
+    //             } else {
+    //                 alert("Error saving design: " + result.error);
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //             alert('An error occurred while saving the design.');
+    //         });
+    // });
 
     function downloadDesignJSON() {
         const designData = {
