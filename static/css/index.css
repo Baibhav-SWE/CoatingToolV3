@@ -666,6 +666,22 @@ background-color: #0A2540;
     color: #0A2540;
 }
 
+.btn-danger {
+    background-color: rgb(239 68 68 );
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 50%;
+    max-width: 200px;
+}
+
+.btn-danger:hover {
+    background-color: rgb(187, 36, 36);
+}
+
 /* Image Section */
 .div-index .image-section {
     flex: 1;

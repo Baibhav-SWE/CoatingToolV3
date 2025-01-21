@@ -40,7 +40,7 @@
     <!-- Select Design Modal -->
     <div id="designsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg p-6 max-w-3xl w-full">
-            <h2 class="text-xl font-bold mb-4">Select a Design</h2>
+            <h2 class="text-xl font-bold mb-4 text-black">Select a Design</h2>
             <div id="designsModalContent" class="overflow-y-auto max-h-96">
                 <!-- List of designs will be dynamically added here -->
             </div>
@@ -55,7 +55,7 @@
     <div id="designDetailsModal"
         class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div class="bg-white rounded-lg p-6 max-w-3xl w-full">
-            <div id="designDetails" class="overflow-y-auto max-h-96">
+            <div id="designDetails" class="overflow-y-auto max-h-96 text-black">
                 <!-- Design details will be dynamically added here -->
             </div>
             <div class="flex justify-end mt-4">
@@ -178,7 +178,7 @@
     <!-- Modal for Interactive Simulation -->
     <div id="simulationModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white rounded-lg p-6 max-w-2xl w-full" style="max-height: 90vh; overflow-y: auto;">
-            <h2 class="text-xl font-bold mb-4">Interactive Thickness Adjustment</h2>
+            <h2 class="text-xl font-bold mb-4 text-black">Interactive Thickness Adjustment</h2>
 
             <!-- Scrollable Material List -->
             <div id="thicknessControls" class="border border-gray-300 rounded-lg p-4 bg-gray-100"
@@ -339,7 +339,7 @@
 
                         const designName = document.createElement('span');
                         designName.textContent = design.name;
-                        designName.className = 'design-name font-medium';
+                        designName.className = 'font-medium text-black';
 
                         const viewButton = document.createElement('button');
                         viewButton.textContent = 'View';
@@ -358,7 +358,7 @@
 
                         const deleteButton = document.createElement('button');
                         deleteButton.textContent = 'Delete';
-                        deleteButton.className = 'btn-secondary px-1 py-1 rounded ml-2 bg-red-500 text-white';
+                        deleteButton.className = 'btn-danger px-1 py-1 rounded ml-2 bg-red-500 text-white';
                         deleteButton.addEventListener('click', () => {
                             if (confirm(`Are you sure you want to delete the design "${design.name}"?`)) {
                                 deleteDesign(design.name);
@@ -419,7 +419,7 @@
         const detailsSection = document.getElementById('designDetails');
         const details = design.details || {}; // Handle cases where details might be missing
         detailsSection.innerHTML = `
-    <h3 class="text-xl font-bold mb-4">Design Details</h3>
+    <h3 class="text-xl font-bold mb-4 text-black">Design Details</h3>
     <p><strong>Name:</strong> ${design.name || 'Unnamed'}</p>
     <p><strong>Visibility:</strong> ${details.visibility || 'Not specified'}</p>
     <p><strong>Front Materials:</strong> ${details.frontMaterials ? details.frontMaterials.join(', ') : 'N/A'}</p>

@@ -28,7 +28,7 @@ def get_nav_links():
             {'type': 'dropdown', 'name': 'Results', 'url': '#', 'submenu': [
                 {'name': 'Show Transmittance', 'action': "showTransmittance()", 'type': 'button'},
                 {'name': 'Show Reflectance', 'action': "showReflectance()", 'type': 'button'},
-                {'name': 'Color Chart', 'action': "openColorChart()", 'type': 'button'},
+                # {'name': 'Color Chart', 'action': "openColorChart()", 'type': 'button'},
             ]},
             {'type': 'link', 'name': 'All Designs', 'url': url_for('app.public_designs'), 'submenu': None},
             {'type': 'link', 'name': 'Help', 'url': url_for('app.help'), 'submenu': None}
