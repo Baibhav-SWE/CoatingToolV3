@@ -7,13 +7,20 @@ from app.utils.database import get_subscriptions_collection
 def subscription_required(subscription_type):
     """
     A decorator to check if the user has the required subscription type.
-    :param subscription_type: The required subscription type ('basic' or 'premium').
+    :param subscription_type: The required subscription type (string or list of types).
     :return: A redirect if the subscription is not valid, or allows access to the view.
     """
 
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
+            # Ensure subscription_type is a list for easier validation
+            required_types = (
+                [subscription_type]
+                if isinstance(subscription_type, str)
+                else subscription_type
+            )
+
             # Check if the user is logged in
             if not session.get("logged_in"):
                 return redirect(url_for("app.login", next=request.url))
@@ -41,13 +48,14 @@ def subscription_required(subscription_type):
 
             user_subscription_type = user_subscription.get("subscription_type")
 
+            # Allow access if user has a premium subscription
             if user_subscription_type == "premium":
                 return f(*args, **kwargs)
 
-            # Check if the user has the required subscription type
-            if user_subscription_type != subscription_type:
+            # Check if the user's subscription type is in the required types
+            if user_subscription_type not in required_types:
                 flash(
-                    f"{subscription_type.capitalize()} subscription required.",
+                    f"{', '.join(map(str.capitalize, required_types))} subscription required.",
                     "warning",
                 )
                 return redirect(request.referrer or url_for("app.subscription"))

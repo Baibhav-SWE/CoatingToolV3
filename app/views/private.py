@@ -16,8 +16,17 @@ from scipy.optimize import differential_evolution
 from color_chart import plot_color_chart
 from email.mime.text import MIMEText
 from shopify_webhooks.routes import shopify_bp
+<<<<<<< Updated upstream
 from app.utils.database import db,init_db, get_db, get_users_collection
+=======
+<<<<<<< Updated upstream
+from app.utils.database import init_db, get_db, get_users_collection
+=======
+from app.utils.database import db, init_db, get_db, get_users_collection
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 from app.decorators import login_required, subscription_required
+from app.services.subscription import has_subscription_active
 
 # Temporary storage for OTPs (use a database or Redis in production)
 otp_storage = {}
@@ -39,6 +48,11 @@ def index():
     if not session.get("logged_in"):
         return redirect(url_for("app.frontpage"))
 
+    is_subscribed = has_subscription_active(session.get("user_id"))
+
+    if not is_subscribed:
+        return render_template("pages/frontpage.html")
+
     # Retrieve inputs from the session
     start_wavelength = session.get("start_wavelength", 380)
     end_wavelength = session.get("end_wavelength", 1080)
@@ -57,6 +71,7 @@ def index():
     )
 
 
+@subscription_required(["basic", "premium"])
 @login_required
 def welcome():
     if request.method == "POST":
@@ -84,7 +99,7 @@ def welcome():
 def help():
     return render_template("private/help.html", first_name=session.get("first_name"))
 
-
+@subscription_required(["basic", "premium"])
 @login_required
 def materials():
     # Fetch the list of available materials from the directory or database
@@ -430,7 +445,7 @@ def calculate():
         print(f"Error during calculation: {str(e)}")  # Log exception for debugging
         return jsonify({"error": str(e)}), 500
 
-
+@subscription_required(["basic", "premium"])
 @login_required
 def public_designs():
     print("Accessing /public_designs route")  # Debugging print
