@@ -49,7 +49,7 @@ def subscription():
 
     # If subscription is inactive, redirect to subscription page
     if not status:
-        return render_template("pages/subscription.html", message=message, first_name=session.get("first_name"))
+        return render_template("private/subscription.html", message=message, first_name=session.get("first_name"))
 
     # If subscription is active, redirect to materials page
     return redirect(url_for("app.index"))

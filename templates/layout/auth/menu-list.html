@@ -1,4 +1,6 @@
+{% if request.path != url_for('app.subscription') %}
 <a class="menu-item" href="/welcome">Home</a>
+{% endif %}
 
 {% if request.path == url_for('app.welcome') %}
 <div class="relative dropdown">

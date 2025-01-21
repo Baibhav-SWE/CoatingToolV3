@@ -242,7 +242,7 @@
 
   <!-- drawer component -->
   <div id="subscription-drawer-navigation"
-    class="fixed top-0 right-0 z-40 w-full sm:w-96 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-[#2F4153]"
+    class="fixed top-0 right-0 z-40 w-full sm:w-96 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-[#2F4153] z-[9999]"
     tabindex="-1" aria-labelledby="drawer-navigation-label">
     <button type="button" id="close-drawer-btn"
       class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 left-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -266,7 +266,7 @@
               class="price-card border border-gray-500 rounded-lg p-3 py-6 cursor-pointer hover:shadow-lg hover:-translate-y-1 transition duration-300">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <input type="radio" name="plan" value="monthly" class="w-5 h-5 text-gray-600" checked>
+                  <input type="radio" name="plan" value="monthly" class="w-5 h-5 text-gray-600 m-0" checked>
                   <span class="text-xl font-semibold">1 Months</span>
                 </div>
                 <div class="text-right">
@@ -285,7 +285,7 @@
               class="price-card border border-gray-500 rounded-lg p-3 cursor-pointer hover:shadow-lg hover:-translate-y-1 transition duration-300">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <input type="radio" name="plan" value="yearly" class="w-5 h-5 text-gray-600">
+                  <input type="radio" name="plan" value="yearly" class="w-5 h-5 text-gray-600 m-0">
                   <span class="text-xl font-semibold">12 Months</span>
                 </div>
                 <div class="text-right flex-grow">

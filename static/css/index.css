@@ -710,8 +710,9 @@ label {
 }
 
 .div-subscription {
-    /* background: #0A2540;
-    height: 100vh; */
+    background: #0A2540;
+    height: 100vh;
+    overflow: auto;
 }
 
 .footer {
