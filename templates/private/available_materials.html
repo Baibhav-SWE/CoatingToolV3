@@ -9,6 +9,14 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock styles %}
 
+{% block nav %}
+{{super()}}
+<button class="menu-item" onclick="document.getElementById('materialFileInput').click();">Upload Material</button>
+<a class="menu-item" href="/welcome">Set Up Environment</a>
+<a class="menu-item" href="/help">Help</a>
+<a class="menu-item" href="/static/Documentation.pdf" download="Documentation.pdf">Documentation</a>
+{% endblock nav %}
+
 {% block body %}
 <div class="div-materials">
     <!-- New Heading and Subheading -->
@@ -47,6 +55,7 @@
 {% endblock body %}
 
 {% block scripts %}
+{{super()}}
 <script>
     async function fetchMaterials() {
         const response = await fetch('/get_materials');

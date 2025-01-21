@@ -15,18 +15,10 @@ from random import randint
 from scipy.optimize import differential_evolution
 from color_chart import plot_color_chart
 from email.mime.text import MIMEText
-from shopify_webhooks.routes import shopify_bp
-<<<<<<< Updated upstream
-from app.utils.database import db,init_db, get_db, get_users_collection
-=======
-<<<<<<< Updated upstream
-from app.utils.database import init_db, get_db, get_users_collection
-=======
-from app.utils.database import db, init_db, get_db, get_users_collection
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+from app.utils.database import db
 from app.decorators import login_required, subscription_required
 from app.services.subscription import has_subscription_active
+from app.services.navigation import get_nav_links
 
 # Temporary storage for OTPs (use a database or Redis in production)
 otp_storage = {}
@@ -68,6 +60,7 @@ def index():
         glass_thickness=glass_thickness,
         theta=theta,
         incoh=incoh,
+        nav_links=get_nav_links()
     )
 
 
@@ -92,12 +85,20 @@ def welcome():
         return redirect(url_for("app.index"))
 
     print("Session data in welcome route:", session)  # Debugging: Print session data
-    return render_template("private/welcome.html", first_name=session.get("first_name"))
+    return render_template(
+        "private/welcome.html",
+        first_name=session.get("first_name"),
+        nav_links=get_nav_links()
+    )
 
 
 @login_required
 def help():
-    return render_template("private/help.html", first_name=session.get("first_name"))
+    return render_template(
+        "private/help.html", 
+        first_name=session.get("first_name"),
+        nav_links=get_nav_links()
+    )
 
 @subscription_required(["basic", "premium"])
 @login_required
@@ -110,6 +111,7 @@ def materials():
         "private/available_materials.html",
         materials=materials_list,
         first_name=session.get("first_name"),
+        nav_links=get_nav_links()
     )
 
 
@@ -451,7 +453,9 @@ def public_designs():
     print("Accessing /public_designs route")  # Debugging print
     try:
         return render_template(
-            "private/public_designs.html", first_name=session.get("first_name")
+            "private/public_designs.html",
+            first_name=session.get("first_name"),
+            nav_links=get_nav_links()
         )
     except Exception as e:
         print(f"Error rendering template: {e}")

@@ -16,6 +16,9 @@
   {% block body %}{% endblock body %}
 </body>
 
-{% block scripts %}{% endblock scripts %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+<script src="{{ url_for('static', filename='js/api.js') }}"></script>
+{% endblock scripts %}
 
 </html>

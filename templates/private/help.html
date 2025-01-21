@@ -9,6 +9,11 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock styles %}
 
+{% block nav %}
+<a class="menu-item" href="/load-design">Load Design</a>
+<a class="menu-item" href="/help">Help</a>
+{% endblock %}
+
 {% block body %}
 
 <div class="div-help">
@@ -89,3 +94,7 @@
 </div>
 
 {% endblock body %}
+
+{% block scripts %}
+{{super()}}
+{% endblock scripts %}

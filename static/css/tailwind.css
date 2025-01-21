@@ -1527,6 +1527,10 @@ video {
   .sm\:w-96 {
     width: 24rem;
   }
+
+  .sm\:flex-row {
+    flex-direction: row;
+  }
 }
 
 @media (min-width: 768px) {

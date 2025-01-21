@@ -521,11 +521,6 @@ background-color: #0A2540;
     overflow: auto;
 }
 
-.div-index-form {
-    display: flex;
-    flex-direction: row;
-}
-
 #simulationModal {
     z-index: 1000; /* Ensure it is above other elements */
     overflow-y: auto;
