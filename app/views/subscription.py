@@ -49,7 +49,13 @@ def subscription():
 
     # If subscription is inactive, redirect to subscription page
     if not status:
-        return render_template("private/subscription.html", message=message, first_name=session.get("first_name"))
+        trial_taken, trial_message = is_trial_taken(user_id)
+        return render_template(
+            "private/subscription.html",
+            message=message,
+            first_name=session.get("first_name"),
+            trial_taken=trial_taken,
+        )
 
     # If subscription is active, redirect to materials page
     return redirect(url_for("app.index"))

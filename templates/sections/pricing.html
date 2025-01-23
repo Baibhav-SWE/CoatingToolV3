@@ -41,13 +41,20 @@
         <div>
         </div>
       </div>
-      <a href="/subscription/activate-trial">
+      {% if not trial_taken %}
+        <a href="/subscription/activate-trial">
+          <button
+            class="w-full bg-black text-white py-2 rounded-sm mb-4 hover:text-black hover:bg-white transition duration-300 border border-black">
+            Upgrade
+          </button>
+        </a>
+      {% else %}
         <button
-          class="w-full bg-black text-white py-2 rounded-sm mb-4 hover:text-black hover:bg-white transition duration-300 border border-black">
-          Upgrade
+          class="w-full bg-gray-400 text-white py-2 rounded-sm mb-4 cursor-not-allowed border border-gray-400" 
+          disabled>
+          Not available
         </button>
-      </a>
-
+      {% endif %}
     </div>
   </div>
 

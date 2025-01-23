@@ -40,10 +40,10 @@ def index():
     if not session.get("logged_in"):
         return redirect(url_for("app.frontpage"))
 
-    is_subscribed = has_subscription_active(session.get("user_id"))
+    is_subscribed, message = has_subscription_active(session.get("user_id"))
 
     if not is_subscribed:
-        return render_template("pages/frontpage.html")
+        return redirect(url_for("app.subscription"))
 
     # Retrieve inputs from the session
     start_wavelength = session.get("start_wavelength", 380)
@@ -60,11 +60,11 @@ def index():
         glass_thickness=glass_thickness,
         theta=theta,
         incoh=incoh,
-        nav_links=get_nav_links()
+        nav_links=get_nav_links(),
     )
 
 
-@subscription_required(["basic", "premium"])
+@subscription_required(["basic", "premium", "trial"])
 @login_required
 def welcome():
     if request.method == "POST":
@@ -88,19 +88,20 @@ def welcome():
     return render_template(
         "private/welcome.html",
         first_name=session.get("first_name"),
-        nav_links=get_nav_links()
+        nav_links=get_nav_links(),
     )
 
 
 @login_required
 def help():
     return render_template(
-        "private/help.html", 
+        "private/help.html",
         first_name=session.get("first_name"),
-        nav_links=get_nav_links()
+        nav_links=get_nav_links(),
     )
 
-@subscription_required(["basic", "premium"])
+
+@subscription_required(["basic", "premium", "trial"])
 @login_required
 def materials():
     # Fetch the list of available materials from the directory or database
@@ -111,7 +112,7 @@ def materials():
         "private/available_materials.html",
         materials=materials_list,
         first_name=session.get("first_name"),
-        nav_links=get_nav_links()
+        nav_links=get_nav_links(),
     )
 
 
@@ -447,7 +448,8 @@ def calculate():
         print(f"Error during calculation: {str(e)}")  # Log exception for debugging
         return jsonify({"error": str(e)}), 500
 
-@subscription_required(["basic", "premium"])
+
+@subscription_required(["basic", "premium", "trial"])
 @login_required
 def public_designs():
     print("Accessing /public_designs route")  # Debugging print
@@ -455,7 +457,7 @@ def public_designs():
         return render_template(
             "private/public_designs.html",
             first_name=session.get("first_name"),
-            nav_links=get_nav_links()
+            nav_links=get_nav_links(),
         )
     except Exception as e:
         print(f"Error rendering template: {e}")
